@@ -16,16 +16,16 @@ public class BuildManager : MonoBehaviour
     }
 
     public GameObject standardTurretPrefab;
-
-    void Start ()
-    {
-        turretToBuilid = standardTurretPrefab;
-    }
-
+    public GameObject anotherTurretPrefab;
     private GameObject turretToBuilid;
 
     public GameObject GetTurretToBuild ()
     {
         return turretToBuilid;
+    }
+    
+    public void SetTurretToBuild (GameObject turret)
+    {
+        turretToBuilid = turret;
     }
 }
