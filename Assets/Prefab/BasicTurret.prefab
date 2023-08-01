@@ -165,7 +165,7 @@ MonoBehaviour:
   target: {fileID: 1635218240299217642, guid: b66d4a51529180243bfb6eccc5994d53, type: 3}
   range: 15
   fireRate: 1
-  fireCountdown: 0
+  fireCountdown: 1
   enemyTag: Enemy
   partToRotate: {fileID: 3493967475114310810}
   turnSpeed: 10
