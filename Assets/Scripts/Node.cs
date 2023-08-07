@@ -61,6 +61,7 @@ public class Node : MonoBehaviour
         {
             return;
         }
+        
         rend.material.color = hoverColor;
     }
 

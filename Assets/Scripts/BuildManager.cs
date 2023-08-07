@@ -15,30 +15,40 @@ public class BuildManager : MonoBehaviour
         instance = this;
     }
 
+    [Header("Towers")]
     public GameObject standardTurretPrefab;
     public GameObject missileTurretPrefab;
-    private TowerBlueprint turretToBuilid;
 
-    public bool CanBuild { get { return turretToBuilid != null; } }
+    //what tower has been selected
+    private TowerBlueprint turretToBuild;
 
+    //checks if you have selected a tower. CanBuild = true when you have a tower selected
+    public bool CanBuild { get { return turretToBuild != null; } }
+
+    //build a turret on a node/tile
     public void BuildTurretOn (Node node)
     {
-        if(PlayerResources.Money < turretToBuilid.cost)
+        //check if player has enough money
+        if(PlayerResources.Money < turretToBuild.cost)
         {
             Debug.Log("Not enough money");
             return;
         }
 
-        PlayerResources.Money -= turretToBuilid.cost;
+        //take away tower cost from player money
+        PlayerResources.Money -= turretToBuild.cost;
 
-        GameObject turret = (GameObject)Instantiate(turretToBuilid.prefab, node.GetBuildPosition(), Quaternion.identity);
+        //create turretToBuild's prefab on tiles position + offset and rotation
+        GameObject turret = (GameObject)Instantiate(turretToBuild.prefab, node.GetBuildPosition(), Quaternion.identity);
+        //tile now has tower on it
         node.turret = turret;
 
         Debug.Log("Turret built! Money left: " + PlayerResources.Money);
     }
 
+    //stores tower put in parameter into towerToBuild, takes custom TowerBlueprint class
     public void SelectTurretToBuild (TowerBlueprint turret)
     {
-        turretToBuilid = turret;
+        turretToBuild = turret;
     }
 }
