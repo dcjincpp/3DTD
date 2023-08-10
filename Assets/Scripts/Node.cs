@@ -5,6 +5,7 @@ public class Node : MonoBehaviour
 {
 
     public Color hoverColor;
+    public Color invalidColor;
     public Vector3 positionOffset = new Vector3(0f, 0.5f, 0f);
 
     [Header("Optional")]
@@ -61,8 +62,13 @@ public class Node : MonoBehaviour
         {
             return;
         }
-        
-        rend.material.color = hoverColor;
+
+        if (buildManager.HasMoney)
+        {
+            rend.material.color = hoverColor;
+        } else {
+            rend.material.color = invalidColor;
+        }
     }
 
     void OnMouseExit ()
