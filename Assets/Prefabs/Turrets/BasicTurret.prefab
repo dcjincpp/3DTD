@@ -164,12 +164,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1635218240299217642, guid: b66d4a51529180243bfb6eccc5994d53, type: 3}
   range: 15
+  bulletPrefab: {fileID: 653135472813780853, guid: d87d328849c6c414e8acaf4aa62f7c6c, type: 3}
   fireRate: 1
   fireCountdown: 1
+  useLaser: 0
+  lineRenderer: {fileID: 0}
+  impactEffect: {fileID: 0}
   enemyTag: Enemy
   partToRotate: {fileID: 3493967475114310810}
   turnSpeed: 10
-  bulletPrefab: {fileID: 653135472813780853, guid: d87d328849c6c414e8acaf4aa62f7c6c, type: 3}
   firePoint: {fileID: 2437109096345936139}
 --- !u!1 &1730289371474210261
 GameObject:
