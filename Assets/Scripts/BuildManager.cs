@@ -15,10 +15,6 @@ public class BuildManager : MonoBehaviour
         instance = this;
     }
 
-    [Header("Towers")]
-    public GameObject standardTurretPrefab;
-    public GameObject missileTurretPrefab;
-
     public GameObject buildEffect;
 
     //what tower has been selected
