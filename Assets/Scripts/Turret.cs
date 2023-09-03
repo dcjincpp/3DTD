@@ -21,6 +21,8 @@ public class Turret : MonoBehaviour
     public ParticleSystem impactGlow;
     public Light impactLight;
 
+    public float damageOverTime = 30f;
+
     [Header("Unity Setup Fields")]
     public string enemyTag = "Enemy";    
     public Transform partToRotate;
@@ -111,6 +113,8 @@ public class Turret : MonoBehaviour
             impactLight.enabled = true;
             impactGlow.Play();
         }
+
+        //target.GetComponent<Enemy>().TakeDamage(damageOverTime * Time.deltaTime);
 
         //laser starts from fire point and ends at target
         lineRenderer.SetPosition(0, firePoint.position);
