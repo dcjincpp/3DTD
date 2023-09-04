@@ -19,11 +19,14 @@ public class BuildManager : MonoBehaviour
 
     //what tower has been selected
     private TowerBlueprint turretToBuild;
+    private Node selectedNode;
 
     //checks if you have selected a tower. CanBuild = true when you have a tower selected
     public bool CanBuild { get { return turretToBuild != null; } }
     //checks if you have enough money to build turretToBuild (selected turret to build)
     public bool HasMoney { get { return PlayerResources.Money >= turretToBuild.cost; } }
+
+    public NodeUI nodeUI;
 
     //build a turret on a node/tile
     public void BuildTurretOn (Node node)
@@ -49,9 +52,31 @@ public class BuildManager : MonoBehaviour
         Debug.Log("Turret built! Money left: " + PlayerResources.Money);
     }
 
+    public void SelectNode (Node node)
+    {
+        if(selectedNode == node)
+        {
+            DeselectNode();
+            return;
+        }
+
+        selectedNode = node;
+        turretToBuild = null;
+
+        nodeUI.SetTarget(node);
+    }
+
+    public void DeselectNode()
+    {
+        selectedNode = null;
+        nodeUI.Hide();
+    }
+
     //stores tower put in parameter into towerToBuild, takes custom TowerBlueprint class
     public void SelectTurretToBuild (TowerBlueprint turret)
     {
         turretToBuild = turret;
+        
+        DeselectNode();
     }
 }

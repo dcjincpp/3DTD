@@ -32,8 +32,16 @@ public class Node : MonoBehaviour
 
     void OnMouseUpAsButton()
     {
+        //if clicked a ui element dont click through, return
         if (EventSystem.current.IsPointerOverGameObject())
         {
+            return;
+        }
+
+
+        if (turret != null)
+        {
+            buildManager.SelectNode(this);
             return;
         }
 
@@ -42,11 +50,6 @@ public class Node : MonoBehaviour
             return;
         }
 
-        if (turret != null)
-        {
-            Debug.Log("Already something on tile (display on screen)");
-            return;
-        }
 
         buildManager.BuildTurretOn(this);
     }
