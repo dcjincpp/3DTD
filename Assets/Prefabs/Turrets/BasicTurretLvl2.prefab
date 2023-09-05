@@ -94,7 +94,7 @@ MeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: 43d7fe6cfdc55924f809bd47584f6dc3, type: 2}
   - {fileID: 2100000, guid: 2d20c6d12c7e388469639e4dfe1a86ba, type: 2}
-  - {fileID: 2100000, guid: 129e045e321e3e44c9eff62a19d0a7a5, type: 2}
+  - {fileID: 2100000, guid: 2aa7e605569fb6840a1b80d8871b3f1e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 2203860625481946963}
   - component: {fileID: 6222645721854125777}
   m_Layer: 0
-  m_Name: BasicTurret
+  m_Name: BasicTurretLvl2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,9 +163,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1635218240299217642, guid: b66d4a51529180243bfb6eccc5994d53, type: 3}
-  range: 15
-  bulletPrefab: {fileID: 653135472813780853, guid: d87d328849c6c414e8acaf4aa62f7c6c, type: 3}
-  fireRate: 1
+  range: 20
+  bulletPrefab: {fileID: 653135472813780853, guid: 3c14b2a274f02ab4987907efceafdd00, type: 3}
+  fireRate: 1.5
   fireCountdown: 1
   useLaser: 0
   lineRenderer: {fileID: 0}

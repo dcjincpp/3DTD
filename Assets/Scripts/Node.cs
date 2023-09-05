@@ -8,9 +8,15 @@ public class Node : MonoBehaviour
     public Color invalidColor;
     public Vector3 positionOffset = new Vector3(0f, 0.5f, 0f);
 
-    [Header("Optional")]
+    [HideInInspector]
     //what turret is occupying the tile
     public GameObject turret;
+
+    [HideInInspector]
+    public TowerBlueprint towerBlueprint;
+
+    [HideInInspector]
+    public bool isUpgraded = false;
 
     private Renderer rend;
     private Color startColor;
@@ -38,7 +44,6 @@ public class Node : MonoBehaviour
             return;
         }
 
-
         if (turret != null)
         {
             buildManager.SelectNode(this);
@@ -50,8 +55,64 @@ public class Node : MonoBehaviour
             return;
         }
 
+        BuildTower(buildManager.GetTurretToBuild());
+    }
 
-        buildManager.BuildTurretOn(this);
+    //build a turret on a node/tile
+    void BuildTower (TowerBlueprint tower)
+    {
+        //check if player has enough money
+        if(PlayerResources.Money < tower.cost)
+        {
+            Debug.Log("Not enough money");
+            return;
+        }
+
+        //take away tower cost from player money
+        PlayerResources.Money -= tower.cost;
+
+        //create turretToBuild's prefab on tiles position + offset and rotation
+        GameObject _turret = (GameObject)Instantiate(tower.prefab, GetBuildPosition(), Quaternion.identity);
+
+        towerBlueprint = tower;
+
+        //tile now has tower on it
+        turret = _turret;
+
+        GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 3f);
+
+        Debug.Log("Turret built!");
+
+    }
+
+    public void UpgradeTurret ()
+    {
+        //check if player has enough money
+        if(PlayerResources.Money < towerBlueprint.upgradeCost)
+        {
+            Debug.Log("Not enough money");
+            return;
+        }
+
+        //destroy turret currently on tile (previous version of tower)
+        Destroy(turret);
+
+        //take away tower upgrade cost from player money
+        PlayerResources.Money -= towerBlueprint.upgradeCost;
+
+        //create turretToBuild's upgraded prefab on tiles position + offset and rotation
+        GameObject _turret = (GameObject)Instantiate(towerBlueprint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
+
+        //tile now has upgraded tower on it from previous line ^^^
+        turret = _turret;
+
+        GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 3f);
+
+        isUpgraded = true;
+
+        Debug.Log("Turret upgraded!");
     }
 
     void OnMouseEnter ()

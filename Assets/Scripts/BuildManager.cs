@@ -28,30 +28,6 @@ public class BuildManager : MonoBehaviour
 
     public NodeUI nodeUI;
 
-    //build a turret on a node/tile
-    public void BuildTurretOn (Node node)
-    {
-        //check if player has enough money
-        if(PlayerResources.Money < turretToBuild.cost)
-        {
-            Debug.Log("Not enough money");
-            return;
-        }
-
-        //take away tower cost from player money
-        PlayerResources.Money -= turretToBuild.cost;
-
-        //create turretToBuild's prefab on tiles position + offset and rotation
-        GameObject turret = (GameObject)Instantiate(turretToBuild.prefab, node.GetBuildPosition(), Quaternion.identity);
-        //tile now has tower on it
-        node.turret = turret;
-
-        GameObject effect = (GameObject)Instantiate(buildEffect, node.GetBuildPosition(), Quaternion.identity);
-        Destroy(effect, 3f);
-
-        Debug.Log("Turret built! Money left: " + PlayerResources.Money);
-    }
-
     public void SelectNode (Node node)
     {
         if(selectedNode == node)
@@ -78,5 +54,10 @@ public class BuildManager : MonoBehaviour
         turretToBuild = turret;
         
         DeselectNode();
+    }
+
+    public TowerBlueprint GetTurretToBuild ()
+    {
+        return turretToBuild;
     }
 }
