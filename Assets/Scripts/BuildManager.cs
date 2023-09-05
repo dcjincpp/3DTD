@@ -16,6 +16,7 @@ public class BuildManager : MonoBehaviour
     }
 
     public GameObject buildEffect;
+    public GameObject sellEffect;
 
     //what tower has been selected
     private TowerBlueprint turretToBuild;

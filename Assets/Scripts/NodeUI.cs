@@ -8,6 +8,7 @@ public class NodeUI : MonoBehaviour
     public Button upgradeButton;
 
     public TMPro.TextMeshProUGUI upgradeCost;
+    public TMPro.TextMeshProUGUI sellValue;
 
     public void SetTarget (Node _target)
     {
@@ -25,6 +26,8 @@ public class NodeUI : MonoBehaviour
             upgradeCost.text = "MAXED";
         }
 
+        sellValue.text = "$" + target.towerBlueprint.GetSellValue();
+
         uI.SetActive(true);
     }
 
@@ -38,5 +41,11 @@ public class NodeUI : MonoBehaviour
         target.UpgradeTurret();
         //closes upgrade/sell ui after upgrading
         BuildManager.instance.DeselectNode(); //change to not close after upgrading
+    }
+
+    public void Sell ()
+    {
+        target.SellTurret();
+        BuildManager.instance.DeselectNode();
     }
 }
