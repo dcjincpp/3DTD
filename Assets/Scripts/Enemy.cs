@@ -44,6 +44,7 @@ public class Enemy : MonoBehaviour
     void Die ()
     {
         Destroy(gameObject);
+        WaveSpawner.EnemiesAlive--;
         
         GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(effect, 3f);
