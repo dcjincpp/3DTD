@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
     public TMPro.TextMeshProUGUI roundsText;
+    public SceneFader sceneFader;
+    public string menuSceneName = "MainMenu";
 
     // Start is called before the first frame update
     void OnEnable ()
@@ -16,11 +18,11 @@ public class GameOver : MonoBehaviour
     // Update is called once per frame
     public void Retry ()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        sceneFader.FadeOutTo(SceneManager.GetActiveScene().name);
     }
 
     public void Menu ()
     {
-        Debug.Log("Go to menu");
+        sceneFader.FadeOutTo(menuSceneName);
     }
 }
