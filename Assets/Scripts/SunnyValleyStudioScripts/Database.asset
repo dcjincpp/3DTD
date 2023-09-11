@@ -15,7 +15,7 @@ MonoBehaviour:
   objectsData:
   - <Name>k__BackingField: EnemyPath
     <ID>k__BackingField: 0
-    <Size>k__BackingField: {x: 2, y: 2}
+    <Size>k__BackingField: {x: 1, y: 1}
     <Prefab>k__BackingField: {fileID: 4063388093418900913, guid: a0be465383c40694aba68dc6d1fe87f3, type: 3}
   - <Name>k__BackingField: NatureTile
     <ID>k__BackingField: 1
