@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3029056452874930206}
   m_Layer: 0
-  m_Name: CursorIndicatorParent
+  m_Name: CellIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,7 +94,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cb8555aefe61e694c943b464a88d7cbd, type: 2}
+  - {fileID: 2100000, guid: f6ad7b8b97d33b741a299e933f1ad08f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

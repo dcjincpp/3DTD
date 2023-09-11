@@ -15,17 +15,17 @@ MonoBehaviour:
   objectsData:
   - <Name>k__BackingField: EnemyPath
     <ID>k__BackingField: 0
-    <Size>k__BackingField: {x: 5, y: 5}
+    <Size>k__BackingField: {x: 2, y: 2}
     <Prefab>k__BackingField: {fileID: 4063388093418900913, guid: a0be465383c40694aba68dc6d1fe87f3, type: 3}
   - <Name>k__BackingField: NatureTile
     <ID>k__BackingField: 1
-    <Size>k__BackingField: {x: 4, y: 4}
+    <Size>k__BackingField: {x: 1, y: 1}
     <Prefab>k__BackingField: {fileID: 820336029613033222, guid: 2133d7f692b6671489004bcac8b10e6c, type: 3}
   - <Name>k__BackingField: MachineTile
     <ID>k__BackingField: 2
-    <Size>k__BackingField: {x: 4, y: 4}
+    <Size>k__BackingField: {x: 1, y: 1}
     <Prefab>k__BackingField: {fileID: 820336029613033222, guid: 9707a39a621efd24ba8f897e0382c164, type: 3}
   - <Name>k__BackingField: MagicTile
     <ID>k__BackingField: 3
-    <Size>k__BackingField: {x: 4, y: 4}
+    <Size>k__BackingField: {x: 1, y: 1}
     <Prefab>k__BackingField: {fileID: 820336029613033222, guid: 4fb53312d4ba9314c998a3b147ab3e09, type: 3}
