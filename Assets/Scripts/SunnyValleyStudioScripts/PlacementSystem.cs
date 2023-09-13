@@ -53,6 +53,15 @@ public class PlacementSystem : MonoBehaviour
         inputmanager.OnExit += StopPlacement;
     }
 
+    public void StartRemovement ()
+    {
+        StopPlacement();
+        gridVisualization.SetActive(true);
+        buildingState = new RemovingState(grid, preview, enemyTileData, playerTileData, objectPlacer);
+        inputmanager.OnClicked += PlaceStructure;
+        inputmanager.OnExit += StopPlacement;
+    }
+
     //Creates object to show what you chose but does not place
     private void PlaceStructure()
     {
