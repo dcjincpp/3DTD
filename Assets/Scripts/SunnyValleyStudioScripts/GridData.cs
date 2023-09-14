@@ -9,7 +9,8 @@ public class GridData
 {
     Dictionary<Vector3Int, PlacementData> placedObjects = new();
 
-    public void AddObjectAt(Vector3Int gridPosition,
+
+    public void AddObjectAt(Vector3Int gridPosition, //where the object is in the cell
                             Vector2Int objectSize,
                             int ID,
                             int placedObjectIndex)
@@ -57,12 +58,15 @@ public class GridData
         return true;
     }
 
+
+    //if there is a reference to the key at the gridposition, return the reference index
     internal int GetRepresentationIndex(Vector3Int gridPosition)
     {
         if(placedObjects.ContainsKey(gridPosition) == false)
         {
             return -1;
         }
+
         return placedObjects[gridPosition].PlacedObjectIndex;
     }
 

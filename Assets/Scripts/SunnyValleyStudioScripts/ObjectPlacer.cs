@@ -22,10 +22,12 @@ public class ObjectPlacer : MonoBehaviour
 
     internal void RemoveObjectAt(int gameObjectIndex)
     {
+        //if the amount of placed objects on the tile is less than or equal to the
         if(placedGameobjects.Count <= gameObjectIndex || placedGameobjects[gameObjectIndex] == null)
         {
             return;
         }
+
         Destroy(placedGameobjects[gameObjectIndex]);
         placedGameobjects[gameObjectIndex] = null;
     }
