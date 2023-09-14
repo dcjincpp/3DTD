@@ -35,6 +35,8 @@ public class InputManager : MonoBehaviour
     public bool IsPointerOverUI ()
         => EventSystem.current.IsPointerOverGameObject();
 
+
+    //get where your cursor is pointing
     public Vector3 GetSelectedMapPosition ()
     {
         //x and y position of mouse from origin (bottom left of screen), z is 0

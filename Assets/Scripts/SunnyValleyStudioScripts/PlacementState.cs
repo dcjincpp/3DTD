@@ -53,7 +53,7 @@ public class PlacementState : IBuildingState
         previewSystem.StopShowingPreview();
     }
 
-    //
+
     public void OnAction (Vector3Int gridPosition)
     {
         bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);

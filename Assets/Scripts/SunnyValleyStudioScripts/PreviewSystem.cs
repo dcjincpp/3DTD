@@ -22,6 +22,7 @@ public class PreviewSystem : MonoBehaviour
         cellIndicatorRenderer = cellIndicator.GetComponentInChildren<Renderer>();
     }
 
+    //create prefab of selected object to place, put preview material on prefab and  cell indicator, activate cell indicator
     public void StartShowingPlacementPreview (GameObject prefab, Vector2Int size)
     {
         previewObject = Instantiate(prefab);
@@ -32,20 +33,29 @@ public class PreviewSystem : MonoBehaviour
         cellIndicator.SetActive(true);
     }
 
+    //put transparent preview material on all of gameObjects materials
     private void PreparePreview (GameObject previewObject)
     {
+        //get array of renderer components in prefab
         Renderer[] renderers = previewObject.GetComponentsInChildren<Renderer>();
+
+        //go through array of renderers
         foreach(Renderer renderer in renderers)
         {
+            //array of materials being rendered
             Material[] materials = renderer.materials;
+
+            //replace material with transparent preview material
             for(int i = 0; i < materials.Length; i++)
             {
                 materials[i] = previewMaterialInstance;
             }
 
+            //replace materials in renderer with materials array (unsure)
             renderer.materials = materials;
         }
     }
+
 
     private void PrepareCursor (Vector2Int size)
     {

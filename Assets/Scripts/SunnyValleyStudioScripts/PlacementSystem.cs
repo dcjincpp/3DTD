@@ -85,21 +85,28 @@ public class PlacementSystem : MonoBehaviour
     //     return selectedData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size);
     // }
 
+    //stop placement system, turns off grid visualization, sets click and escape to do nothing, turn off preview 
     private void StopPlacement()
     {
+        //if not in a building state returns and does nothing
         if(buildingState == null)
         {
             return;
         }
         
+
         gridVisualization.SetActive(false);
         buildingState.EndState();
 
+        //left clicking no longer place structure
         inputmanager.OnClicked -= PlaceStructure;
+        //clicking escape no longer stops placement
         inputmanager.OnExit -= StopPlacement;
 
+        //sets last detected position to (0, 0, 0)
         lastDetectedPosition = Vector3Int.zero;
 
+        //sets building state from removing or placing to null
         buildingState = null;
     }
 
