@@ -10,7 +10,10 @@ public class PreviewSystem : MonoBehaviour
     private GameObject previewObject;
 
     [SerializeField]
+    //referenced by previewMaterialInstance
     private Material previewMaterialsPrefab;
+    
+    //used in code for material
     private Material previewMaterialInstance;
 
     private Renderer cellIndicatorRenderer;
@@ -22,7 +25,7 @@ public class PreviewSystem : MonoBehaviour
         cellIndicatorRenderer = cellIndicator.GetComponentInChildren<Renderer>();
     }
 
-    //create prefab of selected object to place, put preview material on prefab and  cell indicator, activate cell indicator
+    //create prefab of selected object to place, put preview material on prefab and cell indicator, activate cell indicator
     public void StartShowingPlacementPreview (GameObject prefab, Vector2Int size)
     {
         previewObject = Instantiate(prefab);
@@ -56,7 +59,7 @@ public class PreviewSystem : MonoBehaviour
         }
     }
 
-
+    //change size of cell indicator if object is larger than 0
     private void PrepareCursor (Vector2Int size)
     {
         if(size.x > 0 || size.y > 0)
@@ -97,24 +100,44 @@ public class PreviewSystem : MonoBehaviour
         cellIndicator.transform.position = position;
     }
 
+    //change selected object preview to transparent red/white based on validity
     private void ApplyFeedbackToPreview(bool validity)
     {
+        //if valid white, else red
         Color c = validity ? Color.white : Color.red;
+
+        //color alpha
         c.a = 0.5f;
+
+        //set selected object color to transparent white or red depending on validity
         previewMaterialInstance.color = c;
+
     }
 
+    //change cell indicator to transparent red/white based on validity
     private void ApplyFeedbackToCursor(bool validity)
     {
+        //if valid white, else red
         Color c = validity ? Color.white : Color.red;
-        cellIndicatorRenderer.material.color = c;
+
+        //color alpha
         c.a = 0.5f;
+
+        //set cellindicators color to transparent white or red depending on validity
+        cellIndicatorRenderer.material.color = c;
+
     }
 
+    //remove option preview
     internal void StartShowingRemovePreviwe()
     {
+        //activate cell indicator
         cellIndicator.SetActive(true);
+
+        //size of cell indicator is 1 x 1
         PrepareCursor(Vector2Int.one);
+
+        //red as default because removing, becomes valid/white when over a created tile
         ApplyFeedbackToCursor(false);
     }
 }
