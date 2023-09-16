@@ -32,6 +32,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    //is cursor over a ui element
     public bool IsPointerOverUI ()
         => EventSystem.current.IsPointerOverGameObject();
 
@@ -43,7 +44,7 @@ public class InputManager : MonoBehaviour
         Vector3 mousePos = Input.mousePosition;
 
         mousePos.z = sceneCamera.nearClipPlane;
-        
+
         //ray that starts from screen to given point in parameter (mousePos)
         Ray ray = sceneCamera.ScreenPointToRay(mousePos);
         RaycastHit hit;
