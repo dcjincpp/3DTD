@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//visual indicator of cursor, object, and theirplacement validity
 public class PreviewSystem : MonoBehaviour
 {
     [SerializeField]
@@ -64,14 +65,21 @@ public class PreviewSystem : MonoBehaviour
     {
         if(size.x > 0 || size.y > 0)
         {
+            //change size of indicator
             cellIndicator.transform.localScale = new Vector3(size.x, 1, size.y);
+            
+            //change size of indicator texture
             cellIndicatorRenderer.material.mainTextureScale = size;
         }
     }
 
+    //stop showing build preview
     public void StopShowingPreview ()
     {
+        //turn off cell indicator
         cellIndicator.SetActive(false);
+
+        //destroy preview of selected object
         if(previewObject != null)
         {
             Destroy(previewObject);
