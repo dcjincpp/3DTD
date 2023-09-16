@@ -59,13 +59,22 @@ public class PlacementSystem : MonoBehaviour
         //clicking escape now stops placement
         inputmanager.OnExit += StopPlacement;
     }
-
+    
+    //start remove state 
     public void StartRemovement ()
     {
         StopPlacement();
+
+        //show grid visual
         gridVisualization.SetActive(true);
+
+        //create 1 x 1 cell indicator peview
         buildingState = new RemovingState(grid, preview, enemyTileData, playerTileData, objectPlacer);
+
+        //left clicking now removes valid tiles
         inputmanager.OnClicked += PlaceStructure;
+
+        //pressing escape stops remove state
         inputmanager.OnExit += StopPlacement;
     }
 
@@ -77,10 +86,13 @@ public class PlacementSystem : MonoBehaviour
             return;
         }
 
+        //get position of mouse in world
         Vector3 mousePosition = inputmanager.GetSelectedMapPosition();
+
         //converts world position of mouse to cell position
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
+        //does the current building state's OnAction at the grid that the cursor is in, place or remove
         buildingState.OnAction(gridPosition);
     }
 
@@ -105,7 +117,7 @@ public class PlacementSystem : MonoBehaviour
         gridVisualization.SetActive(false);
         buildingState.EndState();
 
-        //left clicking no longer place structure
+        //left clicking no longer places/removes structures
         inputmanager.OnClicked -= PlaceStructure;
         //clicking escape no longer stops placement
         inputmanager.OnExit -= StopPlacement;
