@@ -42,14 +42,21 @@ public class PlacementSystem : MonoBehaviour
         playerTileData = new();
     }
 
+    //start placement of object based on inputted ID, activates left click and escape, and shows preview
     public void StartPlacement(int ID)
     {
         StopPlacement();
+
+        //show grid visual
         gridVisualization.SetActive(true);
 
+        //create preview of selected object with its information and show cell indicator
         buildingState = new PlacementState(ID, grid, preview, database, enemyTileData, playerTileData, objectPlacer);
 
+        //left clicking now places structure
         inputmanager.OnClicked += PlaceStructure;
+        
+        //clicking escape now stops placement
         inputmanager.OnExit += StopPlacement;
     }
 

@@ -40,13 +40,16 @@ public class PlacementState : IBuildingState
 
         //go to database which is ObjectsDatabaseSO class, go to objectsData which is a list of ObjectData, find the ID that matches the inputted ID
         selectedObjectIndex = database.objectsData.FindIndex(data => data.ID == ID);
+
         if(selectedObjectIndex > -1)
         {
+            //if valid object index, start showing preview of selected object and cell indicator with appropriate size
             previewSystem.StartShowingPlacementPreview(database.objectsData[selectedObjectIndex].Prefab, database.objectsData[selectedObjectIndex].Size);
         } else {
             throw new System.Exception($"No object with ID {iD}");
         }
     }
+
 
     public void EndState ()
     {
