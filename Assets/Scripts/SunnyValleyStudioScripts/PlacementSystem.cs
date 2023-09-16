@@ -34,6 +34,7 @@ public class PlacementSystem : MonoBehaviour
 
     IBuildingState buildingState;
 
+    //creates separate grid data for enemy tiles and player tiles so each can be placed on the same tile
     private void Start ()
     {
         StopPlacement();
