@@ -104,7 +104,7 @@ public class PlacementSystem : MonoBehaviour
     //     return selectedData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size);
     // }
 
-    //stop placement system, turns off grid visualization, sets click and escape to do nothing, turn off preview 
+    //stop placement system: turn off selected object preview if there is one, turns off grid visualization, sets click and escape to do nothing 
     private void StopPlacement()
     {
         //if not in a building state returns and does nothing
@@ -113,8 +113,10 @@ public class PlacementSystem : MonoBehaviour
             return;
         }
         
-
+        //turns off grid visuals
         gridVisualization.SetActive(false);
+
+        //turn off cell indicator and destroy selected object preview if there is one
         buildingState.EndState();
 
         //left clicking no longer places/removes structures
@@ -129,22 +131,28 @@ public class PlacementSystem : MonoBehaviour
         buildingState = null;
     }
 
+    //get cursor position and only moves cell indicator by cell when cursor moves into new cell on grid
     private void Update ()
     {
+        //check if in building state
         if(buildingState == null)
         {
             return;
         }
 
+        //get mouse position in world
         Vector3 mousePosition = inputmanager.GetSelectedMapPosition();
+
         //converts world position of mouse to cell position
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
+        //if cursor moves into a new cell, update cell indicator and new cell cursor is in becomes old cell
         if(lastDetectedPosition != gridPosition)
         {
-
+            //updateState checks validity, changes object preview and/or cell indicator color based on validity, and moves cell
             buildingState.UpdateState(gridPosition);
 
+            //new current position becomes old position
             lastDetectedPosition = gridPosition;
         }
     }
