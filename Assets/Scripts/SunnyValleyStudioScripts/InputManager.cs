@@ -41,7 +41,9 @@ public class InputManager : MonoBehaviour
     {
         //x and y position of mouse from origin (bottom left of screen), z is 0
         Vector3 mousePos = Input.mousePosition;
+
         mousePos.z = sceneCamera.nearClipPlane;
+        
         //ray that starts from screen to given point in parameter (mousePos)
         Ray ray = sceneCamera.ScreenPointToRay(mousePos);
         RaycastHit hit;
