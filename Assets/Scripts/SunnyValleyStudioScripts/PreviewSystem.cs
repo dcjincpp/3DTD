@@ -86,29 +86,34 @@ public class PreviewSystem : MonoBehaviour
         }
     }
 
+    //move selected object's preview and cell indicator to cursor
     public void UpdatePosition (Vector3 position, bool validity)
     {
+        //if object selected, move it to position of cell that the cursor is in and apply color based on validity
         if(previewObject != null)
         {
             MovePreview(position);
             ApplyFeedbackToPreview(validity);
         }
 
+        //move cell indicator to position of cell that the cursor is in and apply color based on validity
         MoveCursor(position);
         ApplyFeedbackToCursor(validity);
     }
 
+    //move selected object's preview to position, which is cursor position
     private void MovePreview(Vector3 position)
     {
         previewObject.transform.position = new Vector3(position.x, position.y + previewYOffset, position.z);
     }
 
+    //move cell indicator to position, which is cursor position
     private void MoveCursor(Vector3 position)
     {
         cellIndicator.transform.position = position;
     }
 
-    //change selected object preview to transparent red/white based on validity
+    //change selected object's preview to transparent red/white based on validity
     private void ApplyFeedbackToPreview(bool validity)
     {
         //if valid white, else red
@@ -117,7 +122,7 @@ public class PreviewSystem : MonoBehaviour
         //color alpha
         c.a = 0.5f;
 
-        //set selected object color to transparent white or red depending on validity
+        //set selected object's color to transparent white or red depending on validity
         previewMaterialInstance.color = c;
 
     }
