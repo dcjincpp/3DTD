@@ -8,6 +8,7 @@ using UnityEngine;
 //keeps track of what cells are being taken up
 public class GridData
 {
+    //dictionary of placed object key is cell position, definition is data of what is on cell position
     Dictionary<Vector3Int, PlacementData> placedObjects = new(); //cell position is key, return placement data
 
     //add object
@@ -80,16 +81,20 @@ public class GridData
     //if there is a reference to the key at the gridposition, return the reference index
     internal int GetRepresentationIndex(Vector3Int gridPosition)
     {
+        //if nothing is at gridPosition, return -1
         if(placedObjects.ContainsKey(gridPosition) == false)
         {
             return -1;
         }
 
+        //return index in PlacementData of placed object on gridPosition
         return placedObjects[gridPosition].PlacedObjectIndex;
     }
 
+    //remove PlacementData of object connected to gridPosition in dictionary so that it becomes a free cell(s)
     internal void RemoveObjectAt(Vector3Int gridPosition)
     {
+        //for each occupied cell of the object on gridPosition, remove the placementData of the object off every cell from placedObjects dictionary
         foreach(var pos in placedObjects[gridPosition].occupiedPositions)
         {
             placedObjects.Remove(pos);
