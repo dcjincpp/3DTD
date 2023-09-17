@@ -65,6 +65,7 @@ public class PlacementState : IBuildingState
             return;
         }
 
+        //index is the number of objects created -1, returned by objectPlacer, like 5th object created returns 4
         int index = objectPlacer.PlaceObject(database.objectsData[selectedObjectIndex].Prefab, grid.CellToWorld(gridPosition));
 
         

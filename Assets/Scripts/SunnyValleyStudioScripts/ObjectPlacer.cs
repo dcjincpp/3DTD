@@ -12,12 +12,15 @@ public class ObjectPlacer : MonoBehaviour
     {
         //creates prefab connected to object ID in database
         GameObject selectedObject = Instantiate(prefab);
+
         //converts cell of grid position to world position, allows object to stay while mouse moves around inside cell due to int vector
         selectedObject.transform.position = position;
 
+        //add created object into list of placed objects
         placedGameobjects.Add(selectedObject);
 
-        return placedGameobjects.Count - 1;
+        //return how many objects placed -1
+        return placedGameobjects.Count - 1; //why start at 0? change?
     }
 
     internal void RemoveObjectAt(int gameObjectIndex)
