@@ -77,7 +77,7 @@ public class PlacementState : IBuildingState
         //add object data to gridData
         selectedData.AddObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size, database.objectsData[selectedObjectIndex].ID, index);
 
-        //change preview indicator and preview object to red after placing since cell is now filled
+        //change preview indicator and preview object to red after placing
         previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), false);
     }
 
@@ -91,7 +91,7 @@ public class PlacementState : IBuildingState
         return selectedData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size);
     }
 
-    //used to move cell indicator and object preview and change color in PlacementSystem (both states have same function why not just remove from interface and put in placement system?)
+    //used to move cell indicator and object preview and change color in PlacementSystem
     public void UpdateState (Vector3Int gridPosition)
     {
         //check if you can place

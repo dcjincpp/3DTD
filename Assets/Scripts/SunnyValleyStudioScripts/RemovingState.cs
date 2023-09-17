@@ -28,56 +28,80 @@ public class RemovingState : IBuildingState
         this.playerTileData = playerTileData;
         this.objectPlacer = objectPlacer;
 
+        //remove preview, red on empty tiles, white on occupied tiles
         previewSystem.StartShowingRemovePreviwe();
     }
 
+    //stop showing preview cell indicator and object
     public void EndState()
     {
         previewSystem.StopShowingPreview();
     }
 
+    //remove object
     public void OnAction(Vector3Int gridPosition)
     {
+        //switches based on item removed
         GridData selectedData = null;
 
         //dont care about size because removing
+        //check if occupied by playerTile
         if(playerTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one) == false)
         {
+            //go into playerTile GridData
             selectedData = playerTileData;
+            
+          //check if occupied by enemyTile
         } else if(enemyTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one) == false)
         {
+            //go into enemyTile GridData
             selectedData = enemyTileData;
         }
 
+        //if nothing is there
         if(selectedData == null)
         {
-
+            return;
+          
+          //remove object or enemy tile
         } else
-        {
+        {   //what number object it is
             gameObjectIndex = selectedData.GetRepresentationIndex(gridPosition);
 
+            //if -1 means there is no object in the GridData
             if(gameObjectIndex == -1)
             {
                 return;
             }
 
+            //remove object GridData
             selectedData.RemoveObjectAt(gridPosition);
+
+            //destroy gameObject
             objectPlacer.RemoveObjectAt(gameObjectIndex);
         }
 
+        //world position of cell
         Vector3 cellPosition = grid.CellToWorld(gridPosition);
+
+        //check cell for validity and change color of cell indicator accordingly after you remove
         previewSystem.UpdatePosition(cellPosition, CheckIfSelectionIsValid(gridPosition));
     }
 
+    //check if there is something to remove
     private bool CheckIfSelectionIsValid(Vector3Int gridPosition)
     {
+        //checks if there is a playertile or enemytile
         return !(playerTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one) && enemyTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one));
     }
 
+    //used to move cell indicator and object preview and change color in PlacementSystem
     public void UpdateState (Vector3Int gridPosition)
     {
+        //check if you can remove
         bool validity = CheckIfSelectionIsValid(gridPosition);
         
+        //moves cell indicator and changes color based on validity
         previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), validity);
     }
 }
