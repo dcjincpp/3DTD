@@ -74,7 +74,7 @@ public class RemovingState : IBuildingState
         return !(playerTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one) && enemyTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one));
     }
 
-    public void UpdateState(Vector3Int gridPosition)
+    public void UpdateState (Vector3Int gridPosition)
     {
         bool validity = CheckIfSelectionIsValid(gridPosition);
         

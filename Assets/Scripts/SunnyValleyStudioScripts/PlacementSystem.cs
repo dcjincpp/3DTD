@@ -39,7 +39,10 @@ public class PlacementSystem : MonoBehaviour
     {
         StopPlacement();
 
+        //grid data for placed enemy tiles
         enemyTileData = new();
+        
+        //grid data for placed player tiles
         playerTileData = new();
     }
 

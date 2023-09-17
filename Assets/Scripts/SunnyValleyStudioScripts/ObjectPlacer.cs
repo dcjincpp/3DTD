@@ -13,7 +13,7 @@ public class ObjectPlacer : MonoBehaviour
         //creates prefab connected to object ID in database
         GameObject selectedObject = Instantiate(prefab);
 
-        //converts cell of grid position to world position, allows object to stay while mouse moves around inside cell due to int vector
+        //puts created object in cell
         selectedObject.transform.position = position;
 
         //add created object into list of placed objects
