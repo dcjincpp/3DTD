@@ -41,7 +41,7 @@ public class RemovingState : IBuildingState
     //remove object
     public void OnAction(Vector3Int gridPosition)
     {
-        //switches based on item removed
+        //start at null and switches based on item removing
         GridData selectedData = null;
 
         //dont care about size because removing
@@ -68,7 +68,7 @@ public class RemovingState : IBuildingState
         {   //what number object it is
             gameObjectIndex = selectedData.GetRepresentationIndex(gridPosition);
 
-            //if -1 means there is no object in the GridData
+            //if -1 means there is no object in the GridData or it is a precreated object like the spawner
             if(gameObjectIndex == -1)
             {
                 return;
@@ -91,6 +91,11 @@ public class RemovingState : IBuildingState
     //check if there is something to remove
     private bool CheckIfSelectionIsValid(Vector3Int gridPosition)
     {
+        if(gridPosition == GridData.spawnerPosition)
+        {
+            return false;
+        }
+
         //checks if there is a playertile or enemytile
         return !(playerTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one) && enemyTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one));
     }

@@ -58,6 +58,7 @@ public class PlacementState : IBuildingState
     //place object
     public void OnAction (Vector3Int gridPosition)
     {
+
         //check if gridPosition is open
         bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
 
@@ -84,6 +85,11 @@ public class PlacementState : IBuildingState
     //check if cell is open
     private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
     {
+        if(gridPosition == GridData.spawnerPosition)
+        {
+            return false;
+        }
+
         //checks if the cell has an enemy tile or player tile and selectedData becomes corresponding GridData, enemy or player
         GridData selectedData = database.objectsData[selectedObjectIndex].ID == 0 ? enemyTileData : playerTileData;
         

@@ -8,8 +8,19 @@ using UnityEngine;
 //keeps track of what cells are being taken up
 public class GridData
 {
+
+    public static Vector3Int spawnerPosition = new Vector3Int(0, 0, 0);
+    public static Vector2Int spawnerSize = new Vector2Int(1, 1);
+
+
     //dictionary of placed object key is cell position, definition is data of what is on cell position
     Dictionary<Vector3Int, PlacementData> placedObjects = new(); //cell position is key, return placement data
+
+    //
+    void Start ()
+    {
+        AddObjectAt(spawnerPosition, spawnerSize, 0, -1);
+    }
 
     //add object
     public void AddObjectAt(Vector3Int gridPosition, //where the object is in the cell

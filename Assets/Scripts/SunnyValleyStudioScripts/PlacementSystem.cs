@@ -82,7 +82,7 @@ public class PlacementSystem : MonoBehaviour
         inputmanager.OnExit += StopPlacement;
     }
 
-    //Creates object to show what you chose but does not place
+    //Creates or removes on gridPosition cell
     private void PlaceStructure()
     {
         if(inputmanager.IsPointerOverUI())
