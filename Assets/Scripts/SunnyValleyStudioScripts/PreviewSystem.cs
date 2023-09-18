@@ -142,7 +142,7 @@ public class PreviewSystem : MonoBehaviour
     }
 
     //remove option preview
-    internal void StartShowingRemovePreviwe()
+    internal void StartShowingRemovePreview()
     {
         //activate cell indicator
         cellIndicator.SetActive(true);

@@ -41,6 +41,9 @@ public class PlacementSystem : MonoBehaviour
 
         //grid data for placed enemy tiles
         enemyTileData = new();
+
+        //add spawner data to gridData
+        enemyTileData.AddObjectAt(GridData.spawnerPosition, GridData.tileSize, 0, 1);
         
         //grid data for placed player tiles
         playerTileData = new();
@@ -158,6 +161,7 @@ public class PlacementSystem : MonoBehaviour
 
             //new current position becomes old position
             lastDetectedPosition = gridPosition;
+
         }
     }
 }

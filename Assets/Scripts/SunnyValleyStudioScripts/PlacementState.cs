@@ -83,7 +83,7 @@ public class PlacementState : IBuildingState
     }
 
     //check if cell is open
-    private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
+    private bool CheckPlacementValidity (Vector3Int gridPosition, int selectedObjectIndex)
     {
         if(gridPosition == GridData.spawnerPosition)
         {
@@ -92,6 +92,20 @@ public class PlacementState : IBuildingState
 
         //checks if the cell has an enemy tile or player tile and selectedData becomes corresponding GridData, enemy or player
         GridData selectedData = database.objectsData[selectedObjectIndex].ID == 0 ? enemyTileData : playerTileData;
+
+        //check if enemyTile being placed is going to be adjacent to another enemyTile
+        if(selectedData == enemyTileData)
+        {
+            Vector3Int up = new Vector3Int(gridPosition.x, 0, gridPosition.z + 1);
+            Vector3Int down = new Vector3Int(gridPosition.x, 0, gridPosition.z - 1);
+            Vector3Int left = new Vector3Int(gridPosition.x - 1, 0, gridPosition.z);
+            Vector3Int right = new Vector3Int(gridPosition.x + 1, 0, gridPosition.z);
+
+            if(enemyTileData.CanPlaceObjectAt(up, GridData.tileSize) && enemyTileData.CanPlaceObjectAt(down, GridData.tileSize) && enemyTileData.CanPlaceObjectAt(left, GridData.tileSize) && enemyTileData.CanPlaceObjectAt(right, GridData.tileSize))
+            {
+                return false;
+            }
+        }
         
         //true or false if object can be placed in corresponding GridData
         return selectedData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size);

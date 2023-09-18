@@ -29,7 +29,7 @@ public class RemovingState : IBuildingState
         this.objectPlacer = objectPlacer;
 
         //remove preview, red on empty tiles, white on occupied tiles
-        previewSystem.StartShowingRemovePreviwe();
+        previewSystem.StartShowingRemovePreview();
     }
 
     //stop showing preview cell indicator and object
@@ -41,9 +41,14 @@ public class RemovingState : IBuildingState
     //remove object
     public void OnAction(Vector3Int gridPosition)
     {
+        if(gridPosition == GridData.spawnerPosition)
+        {
+            return;
+        }
+
         //start at null and switches based on item removing
         GridData selectedData = null;
-
+        
         //dont care about size because removing
         //check if occupied by playerTile
         if(playerTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one) == false)
@@ -68,7 +73,7 @@ public class RemovingState : IBuildingState
         {   //what number object it is
             gameObjectIndex = selectedData.GetRepresentationIndex(gridPosition);
 
-            //if -1 means there is no object in the GridData or it is a precreated object like the spawner
+            //if -1 means there is no object in the GridData
             if(gameObjectIndex == -1)
             {
                 return;
@@ -91,11 +96,6 @@ public class RemovingState : IBuildingState
     //check if there is something to remove
     private bool CheckIfSelectionIsValid(Vector3Int gridPosition)
     {
-        if(gridPosition == GridData.spawnerPosition)
-        {
-            return false;
-        }
-
         //checks if there is a playertile or enemytile
         return !(playerTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one) && enemyTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one));
     }
@@ -103,8 +103,15 @@ public class RemovingState : IBuildingState
     //used to move cell indicator and object preview and change color in PlacementSystem
     public void UpdateState (Vector3Int gridPosition)
     {
-        //check if you can remove
-        bool validity = CheckIfSelectionIsValid(gridPosition);
+        bool validity;
+
+        if(gridPosition == GridData.spawnerPosition)
+        {
+            validity = false;
+        } else {
+            //check if there is something to remove
+            validity = CheckIfSelectionIsValid(gridPosition);
+        }
         
         //moves cell indicator and changes color based on validity
         previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), validity);

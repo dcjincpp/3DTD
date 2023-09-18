@@ -10,17 +10,11 @@ public class GridData
 {
 
     public static Vector3Int spawnerPosition = new Vector3Int(0, 0, 0);
-    public static Vector2Int spawnerSize = new Vector2Int(1, 1);
+    public static Vector2Int tileSize = new Vector2Int(1, 1);
 
 
     //dictionary of placed object key is cell position, definition is data of what is on cell position
     Dictionary<Vector3Int, PlacementData> placedObjects = new(); //cell position is key, return placement data
-
-    //
-    void Start ()
-    {
-        AddObjectAt(spawnerPosition, spawnerSize, 0, -1);
-    }
 
     //add object
     public void AddObjectAt(Vector3Int gridPosition, //where the object is in the cell
@@ -73,17 +67,17 @@ public class GridData
     //check if you can place object at position
     public bool CanPlaceObjectAt(Vector3Int gridPosition, Vector2Int objectSize)
     {
-        //calculate positions the object would take up
-        List<Vector3Int> positionToOccupy = CalculatePositions(gridPosition, objectSize);
+        //calculate positions the object would take up /*edited out calculating object size position to occupy because my tiles are 1x1*/
+        //List<Vector3Int> positionToOccupy = CalculatePositions(gridPosition, objectSize);
 
         //if part of object is in a position that has placement data, can not place and return false else true
-        foreach(var pos in positionToOccupy)
-        {
-            if(placedObjects.ContainsKey(pos))
+        //foreach(var pos in positionToOccupy)
+        //{
+            if(placedObjects.ContainsKey(gridPosition))
             {
                 return false;
             }
-        }
+        //}
 
         return true;
     }
