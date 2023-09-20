@@ -8,6 +8,8 @@ public class PlacementState : IBuildingState
 {
     private int selectedObjectIndex = -1;
 
+    public int lastPlacedEnemyTileIndex = 0;
+
     int ID;
 
     Grid grid;
@@ -47,6 +49,7 @@ public class PlacementState : IBuildingState
         } else {
             throw new System.Exception($"No object with ID {iD}");
         }
+
     }
 
     //stop showing preview cell indicator and object
@@ -74,6 +77,11 @@ public class PlacementState : IBuildingState
 
         //do i need this?
         GridData selectedData = database.objectsData[selectedObjectIndex].ID == 0 ? enemyTileData : playerTileData;
+
+        if(selectedData == enemyTileData)
+        {
+            lastPlacedEnemyTileIndex = index;
+        }
 
         //add object data to gridData
         selectedData.AddObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size, database.objectsData[selectedObjectIndex].ID, index);

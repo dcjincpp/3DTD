@@ -42,8 +42,42 @@ public class PlacementSystem : MonoBehaviour
         //grid data for placed enemy tiles
         enemyTileData = new();
 
+        Vector3Int startPosition = Vector3Int.zero;
+
+        int startBlockPosition = UnityEngine.Random.Range(1, 4);
+
+        switch(startBlockPosition)
+        {
+            case 1:
+                startPosition = new Vector3Int(GridData.spawnerPosition.x, 0, GridData.spawnerPosition.z + 1);
+                break;
+            
+            case 2:
+                startPosition = new Vector3Int(GridData.spawnerPosition.x, 0, GridData.spawnerPosition.z - 1);
+                break;
+
+            case 3:
+                startPosition = new Vector3Int(GridData.spawnerPosition.x - 1, 0, GridData.spawnerPosition.z);
+                break;
+            
+            case 4:
+                startPosition = new Vector3Int(GridData.spawnerPosition.x + 1, 0, GridData.spawnerPosition.z);
+                break;
+
+        }
+
+        Debug.Log(startBlockPosition);
+
         //add spawner data to gridData
-        enemyTileData.AddObjectAt(GridData.spawnerPosition, GridData.tileSize, 0, 1);
+        enemyTileData.AddObjectAt(GridData.spawnerPosition, GridData.tileSize, 0, -1);
+
+        Debug.Log("before");
+
+        //add initial path tile
+        enemyTileData.AddObjectAt(startPosition, GridData.tileSize, 0, objectPlacer.PlaceObject(database.objectsData[0].Prefab, grid.CellToWorld(startPosition)));
+        Debug.Log("after");
+
+        Debug.Log(objectPlacer.GetHowManyPlacedObjects());
         
         //grid data for placed player tiles
         playerTileData = new();

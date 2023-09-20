@@ -38,4 +38,9 @@ public class ObjectPlacer : MonoBehaviour
         //replace list at index with null
         placedGameobjects[gameObjectIndex] = null;
     }
+
+    public int GetHowManyPlacedObjects ()
+    {
+        return placedGameobjects.Count;
+    }
 }
