@@ -8,6 +8,9 @@ public class PlacementSystem : MonoBehaviour
 {
 
     [SerializeField]
+    private GameObject end;
+
+    [SerializeField]
     private InputManager inputmanager;
 
     [SerializeField]
@@ -66,6 +69,8 @@ public class PlacementSystem : MonoBehaviour
 
         }
 
+
+
         Debug.Log(startBlockPosition);
 
         //add spawner data to gridData
@@ -74,7 +79,9 @@ public class PlacementSystem : MonoBehaviour
         Debug.Log("before");
 
         //add initial path tile
+        end.transform.position = grid.CellToWorld(startPosition);
         enemyTileData.AddObjectAt(startPosition, GridData.tileSize, 0, objectPlacer.PlaceObject(database.objectsData[0].Prefab, grid.CellToWorld(startPosition)));
+
         Debug.Log("after");
 
         Debug.Log(objectPlacer.GetHowManyPlacedObjects());
