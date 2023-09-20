@@ -192,6 +192,7 @@ public class PlacementSystem : MonoBehaviour
         {
             //updateState checks validity, changes object preview and/or cell indicator color based on validity, and moves cell
             buildingState.UpdateState(gridPosition);
+            Debug.Log("x = " + gridPosition.x + "y = " + gridPosition.y + "z = " + gridPosition.z);
 
             //new current position becomes old position
             lastDetectedPosition = gridPosition;

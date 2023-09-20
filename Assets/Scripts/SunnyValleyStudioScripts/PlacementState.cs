@@ -6,9 +6,11 @@ using UnityEngine;
 
 public class PlacementState : IBuildingState
 {
-    private int selectedObjectIndex = -1;
+    private int selectedObjectID = -1;
 
     public int lastPlacedEnemyTileIndex = 0;
+
+    Dictionary<Vector3Int, PlacementData> enemyTileGridData;
 
     int ID;
 
@@ -40,15 +42,17 @@ public class PlacementState : IBuildingState
         this.objectPlacer = objectPlacer;
 
         //go to database which is ObjectsDatabaseSO, go to objectsData which is a list of ObjectData, find the ID that matches the inputted ID
-        selectedObjectIndex = database.objectsData.FindIndex(data => data.ID == ID);
+        selectedObjectID = database.objectsData.FindIndex(data => data.ID == ID);
 
-        if(selectedObjectIndex > -1)
+        if(selectedObjectID > -1)
         {
             //if valid object index, start showing preview of selected object and cell indicator with appropriate size
-            previewSystem.StartShowingPlacementPreview(database.objectsData[selectedObjectIndex].Prefab, database.objectsData[selectedObjectIndex].Size);
+            previewSystem.StartShowingPlacementPreview(database.objectsData[selectedObjectID].Prefab, database.objectsData[selectedObjectID].Size);
         } else {
             throw new System.Exception($"No object with ID {iD}");
         }
+
+        enemyTileGridData = enemyTileData.GetPlacedObjectsDictionary();
 
     }
 
@@ -63,35 +67,38 @@ public class PlacementState : IBuildingState
     {
 
         //check if gridPosition is open
-        bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
-
         //return if gridPosition is not open
-        if(placementValidity == false)
+        if(CheckPlacementValidity(gridPosition, selectedObjectID) == false)
         {
             return;
         }
 
         //creates and places object in cell
         //index is the number of objects created -1, returned by objectPlacer, like 5th object created returns 4
-        int index = objectPlacer.PlaceObject(database.objectsData[selectedObjectIndex].Prefab, grid.CellToWorld(gridPosition));
+        int index = objectPlacer.PlaceObject(database.objectsData[selectedObjectID].Prefab, grid.CellToWorld(gridPosition));
+
+        GridData selectedData;
 
         //do i need this?
-        GridData selectedData = database.objectsData[selectedObjectIndex].ID == 0 ? enemyTileData : playerTileData;
-
-        if(selectedData == enemyTileData)
+        if(database.objectsData[selectedObjectID].ID == 0)
         {
+            selectedData = enemyTileData;
+
             lastPlacedEnemyTileIndex = index;
+
+        } else {
+            selectedData = playerTileData;
         }
 
         //add object data to gridData
-        selectedData.AddObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size, database.objectsData[selectedObjectIndex].ID, index);
+        selectedData.AddObjectAt(gridPosition, database.objectsData[selectedObjectID].Size, database.objectsData[selectedObjectID].ID, index);
 
         //change preview indicator and preview object to red after placing
         previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), false);
     }
 
     //check if cell is open
-    private bool CheckPlacementValidity (Vector3Int gridPosition, int selectedObjectIndex)
+    private bool CheckPlacementValidity (Vector3Int gridPosition, int selectedObjectID)
     {
         if(gridPosition == GridData.spawnerPosition)
         {
@@ -99,34 +106,70 @@ public class PlacementState : IBuildingState
         }
 
         //checks if the cell has an enemy tile or player tile and selectedData becomes corresponding GridData, enemy or player
-        GridData selectedData = database.objectsData[selectedObjectIndex].ID == 0 ? enemyTileData : playerTileData;
+        GridData selectedData;
 
-        //check if enemyTile being placed is going to be adjacent to another enemyTile
-        if(selectedData == enemyTileData)
+        if(database.objectsData[selectedObjectID].ID == 0)
         {
-            Vector3Int up = new Vector3Int(gridPosition.x, 0, gridPosition.z + 1);
-            Vector3Int down = new Vector3Int(gridPosition.x, 0, gridPosition.z - 1);
-            Vector3Int left = new Vector3Int(gridPosition.x - 1, 0, gridPosition.z);
-            Vector3Int right = new Vector3Int(gridPosition.x + 1, 0, gridPosition.z);
+            selectedData = enemyTileData;
 
-            if(enemyTileData.CanPlaceObjectAt(up, GridData.tileSize) && enemyTileData.CanPlaceObjectAt(down, GridData.tileSize) && enemyTileData.CanPlaceObjectAt(left, GridData.tileSize) && enemyTileData.CanPlaceObjectAt(right, GridData.tileSize))
+            if(!NextToLatestTile(gridPosition))
             {
                 return false;
             }
+
+        } else {
+            selectedData = playerTileData;
         }
         
         //true or false if object can be placed in corresponding GridData
-        return selectedData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size);
+        return selectedData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectID].Size);
     }
 
     //used to move cell indicator and object preview and change color in PlacementSystem
     public void UpdateState (Vector3Int gridPosition)
     {
         //check if you can place
-        bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
+        bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectID);
 
         //moves object and cell indicator and changes color based on validity
         previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity);
+    }
+
+    bool NextToLatestTile (Vector3Int gridPosition)
+    {
+        Vector3Int up = new Vector3Int(gridPosition.x, 0, gridPosition.z + 1);
+        Vector3Int down = new Vector3Int(gridPosition.x, 0, gridPosition.z - 1);
+        Vector3Int left = new Vector3Int(gridPosition.x - 1, 0, gridPosition.z);
+        Vector3Int right = new Vector3Int(gridPosition.x + 1, 0, gridPosition.z);
+        Dictionary<Vector3Int, PlacementData> enemyTileGridData = enemyTileData.GetPlacedObjectsDictionary();
+
+        if(enemyTileGridData.ContainsKey(up) && (enemyTileGridData[up].PlacedObjectIndex == lastPlacedEnemyTileIndex))
+        {
+            Debug.Log(enemyTileGridData[up].PlacedObjectIndex);
+            Debug.Log(lastPlacedEnemyTileIndex);
+            Debug.Log("latest tile is up");
+            return true;
+        } else if(enemyTileGridData.ContainsKey(down) && (enemyTileGridData[down].PlacedObjectIndex == lastPlacedEnemyTileIndex))
+        {
+            Debug.Log(enemyTileGridData[down].PlacedObjectIndex);
+            Debug.Log(lastPlacedEnemyTileIndex);
+            Debug.Log("latest tile is below");
+            return true;
+        } else if(enemyTileGridData.ContainsKey(left) && (enemyTileGridData[left].PlacedObjectIndex == lastPlacedEnemyTileIndex))
+        {
+            Debug.Log(enemyTileGridData[left].PlacedObjectIndex);
+            Debug.Log(lastPlacedEnemyTileIndex);
+            Debug.Log("latest tile is on the left");
+            return true;
+        } else if(enemyTileGridData.ContainsKey(right) && (enemyTileGridData[right].PlacedObjectIndex == lastPlacedEnemyTileIndex))
+        {
+            Debug.Log(enemyTileGridData[right].PlacedObjectIndex);
+            Debug.Log(lastPlacedEnemyTileIndex);
+            Debug.Log("latest tile is on the right");
+            return true;
+        }
+
+        return false;
     }
 
 }

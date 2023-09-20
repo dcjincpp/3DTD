@@ -105,6 +105,12 @@ public class GridData
             placedObjects.Remove(pos);
         }
     }
+
+    //getter for placedObjects dictionary
+    public Dictionary<Vector3Int, PlacementData> GetPlacedObjectsDictionary ()
+    {
+        return placedObjects;
+    }
 }
 
 //class to keep track of which cells have been taken up and by what and index (what number object)
