@@ -80,7 +80,7 @@ public class RemovingState : IBuildingState
             gameObjectIndex = selectedData.GetRepresentationIndex(gridPosition);
 
             //if -1 means there is no object in the GridData
-            if((gameObjectIndex == -1) || (gameObjectIndex != objectPlacer.GetLatestEnemyTileIndex()))
+            if((gameObjectIndex == -1) || (gameObjectIndex != objectPlacer.GetLatestEnemyTileIndex()) || gameObjectIndex == 0)
             {
                 return;
             }
@@ -126,7 +126,7 @@ public class RemovingState : IBuildingState
     {
         bool validity;
 
-        if((gridPosition == GridData.spawnerPosition) || (enemyTileGridData.ContainsKey(gridPosition) && (enemyTileGridData[gridPosition].PlacedObjectIndex != objectPlacer.GetLatestEnemyTileIndex())))
+        if((gridPosition == GridData.spawnerPosition) || (enemyTileGridData.ContainsKey(gridPosition) && (enemyTileGridData[gridPosition].PlacedObjectIndex == 0 || (enemyTileGridData[gridPosition].PlacedObjectIndex != objectPlacer.GetLatestEnemyTileIndex()))))
         {
             validity = false;
         } else {
