@@ -7,12 +7,14 @@ public class RemovingState : IBuildingState
 {
     private int gameObjectIndex = -1;
 
+    Dictionary<Vector3Int, PlacementData> enemyTileGridData;
+
     Grid grid;
 
     PreviewSystem previewSystem;
 
     //start at null and switches based on item removing
-    GridData selectedData = null;
+    GridData selectedData;
 
     GridData enemyTileData;
     GridData playerTileData;
@@ -31,6 +33,8 @@ public class RemovingState : IBuildingState
         this.enemyTileData = enemyTileData;
         this.playerTileData = playerTileData;
         this.objectPlacer = objectPlacer;
+
+        enemyTileGridData = enemyTileData.GetPlacedObjectsDictionary();
 
         //remove preview, red on empty tiles, white on occupied tiles
         previewSystem.StartShowingRemovePreview();
@@ -71,7 +75,8 @@ public class RemovingState : IBuildingState
           
           //remove object or enemy tile
         } else if (selectedData == enemyTileData)
-        {   //what number object it is
+        {   
+            //what number object it is
             gameObjectIndex = selectedData.GetRepresentationIndex(gridPosition);
 
             //if -1 means there is no object in the GridData
@@ -121,7 +126,7 @@ public class RemovingState : IBuildingState
     {
         bool validity;
 
-        if((gridPosition == GridData.spawnerPosition) || (selectedData == enemyTileData && (gameObjectIndex != objectPlacer.GetLatestEnemyTileIndex())))
+        if((gridPosition == GridData.spawnerPosition) || (enemyTileGridData.ContainsKey(gridPosition) && (enemyTileGridData[gridPosition].PlacedObjectIndex != objectPlacer.GetLatestEnemyTileIndex())))
         {
             validity = false;
         } else {

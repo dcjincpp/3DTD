@@ -72,8 +72,8 @@ public class ObjectPlacer : MonoBehaviour
         //destroy gameobject with index
         Destroy(placedEnemyTiles[gameObjectIndex]);
 
-        Debug.Log("Index of item being removed: " + gameObjectIndex);
-        Debug.Log("Index of latest enemy tile: " + latestEnemyTileIndex);
+        // Debug.Log("Index of item being removed: " + gameObjectIndex);
+        // Debug.Log("Index of latest enemy tile: " + latestEnemyTileIndex);
 
         //replace list at index with null
         placedEnemyTiles.RemoveAt(gameObjectIndex);
