@@ -71,20 +71,9 @@ public class PlacementSystem : MonoBehaviour
 
 
 
-        Debug.Log(startBlockPosition);
-
-        //add spawner data to gridData
-        enemyTileData.AddObjectAt(GridData.spawnerPosition, GridData.tileSize, 0, -1);
-
-        Debug.Log("before");
-
         //add initial path tile
         end.transform.position = grid.CellToWorld(startPosition);
-        enemyTileData.AddObjectAt(startPosition, GridData.tileSize, 0, objectPlacer.PlaceObject(database.objectsData[0].Prefab, grid.CellToWorld(startPosition)));
-
-        Debug.Log("after");
-
-        Debug.Log(objectPlacer.GetHowManyPlacedObjects());
+        enemyTileData.AddObjectAt(startPosition, GridData.tileSize, 0, objectPlacer.PlaceEnemyTile(database.objectsData[0].Prefab, grid.CellToWorld(startPosition)));
         
         //grid data for placed player tiles
         playerTileData = new();
@@ -199,6 +188,7 @@ public class PlacementSystem : MonoBehaviour
         {
             //updateState checks validity, changes object preview and/or cell indicator color based on validity, and moves cell
             buildingState.UpdateState(gridPosition);
+            
             Debug.Log("x = " + gridPosition.x + "y = " + gridPosition.y + "z = " + gridPosition.z);
 
             //new current position becomes old position

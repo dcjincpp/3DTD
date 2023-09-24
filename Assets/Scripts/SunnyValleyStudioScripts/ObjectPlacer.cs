@@ -7,9 +7,12 @@ using UnityEngine;
 public class ObjectPlacer : MonoBehaviour
 {
     [SerializeField]
-    private List<GameObject> placedGameobjects = new();
+    private List<GameObject> placedEnemyTiles = new();
 
-    public int PlaceObject(GameObject prefab, Vector3 position)
+    [SerializeField]
+    private List<GameObject> placedPlayerTiles = new();
+
+    public int PlacePlayerTile (GameObject prefab, Vector3 position)
     {
         //creates prefab connected to object ID in database
         GameObject selectedObject = Instantiate(prefab);
@@ -18,29 +21,59 @@ public class ObjectPlacer : MonoBehaviour
         selectedObject.transform.position = position;
 
         //add created object into list of placed objects
-        placedGameobjects.Add(selectedObject);
+        placedPlayerTiles.Add(selectedObject);
 
         //return how many objects placed -1
-        return placedGameobjects.Count - 1; //why start at 0? change?, because index starts at 0
+        return placedPlayerTiles.Count - 1; //why start at 0? change?, because index starts at 0
     }
 
-    internal void RemoveObjectAt(int gameObjectIndex)
+    public int PlaceEnemyTile (GameObject prefab, Vector3 position)
+    {
+        //creates prefab connected to object ID in database
+        GameObject selectedObject = Instantiate(prefab);
+
+        //puts created object in cell
+        selectedObject.transform.position = position;
+
+        //add created object into list of placed objects
+        placedEnemyTiles.Add(selectedObject);
+
+        //return how many objects placed -1
+        return placedEnemyTiles.Count - 1; //why start at 0? change?, because index starts at 0
+    }
+
+    internal void RemovePlayerTile (int gameObjectIndex)
     {
         //if the amount of placed objects on the tile is less than or equal to the number of objects -1 or there is no gameObject with index in list, return
-        if(placedGameobjects.Count <= gameObjectIndex || placedGameobjects[gameObjectIndex] == null)
+        if(placedPlayerTiles.Count <= gameObjectIndex || placedPlayerTiles[gameObjectIndex] == null)
         {
             return;
         }
 
         //destroy gameobject with index
-        Destroy(placedGameobjects[gameObjectIndex]);
+        Destroy(placedPlayerTiles[gameObjectIndex]);
 
         //replace list at index with null
-        placedGameobjects[gameObjectIndex] = null;
+        placedPlayerTiles[gameObjectIndex] = null;
     }
 
-    public int GetHowManyPlacedObjects ()
+    internal void RemoveEnemyTile (int gameObjectIndex)
     {
-        return placedGameobjects.Count;
+        //if the amount of placed objects on the tile is less than or equal to the number of objects -1 or there is no gameObject with index in list, return
+        if(placedEnemyTiles.Count <= gameObjectIndex || placedEnemyTiles[gameObjectIndex] == null)
+        {
+            return;
+        }
+
+        //destroy gameobject with index
+        Destroy(placedEnemyTiles[gameObjectIndex]);
+
+        //replace list at index with null
+        placedEnemyTiles[gameObjectIndex] = null;
+    }
+
+    public int GetLatestEnemyTileIndex ()
+    {
+        return placedEnemyTiles.Count - 1;
     }
 }

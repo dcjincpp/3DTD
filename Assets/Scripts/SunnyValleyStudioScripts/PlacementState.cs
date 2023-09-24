@@ -6,10 +6,7 @@ using UnityEngine;
 
 public class PlacementState : IBuildingState
 {
-    private int selectedObjectID = -1;
-
-    public int lastPlacedEnemyTileIndex = 0;
-
+    private int selectedObjectID = - 1;
     Dictionary<Vector3Int, PlacementData> enemyTileGridData;
 
     int ID;
@@ -73,26 +70,28 @@ public class PlacementState : IBuildingState
             return;
         }
 
-        //creates and places object in cell
-        //index is the number of objects created -1, returned by objectPlacer, like 5th object created returns 4
-        int index = objectPlacer.PlaceObject(database.objectsData[selectedObjectID].Prefab, grid.CellToWorld(gridPosition));
-
         GridData selectedData;
+        int index;
 
         //do i need this?
         if(database.objectsData[selectedObjectID].ID == 0)
         {
             selectedData = enemyTileData;
 
-            lastPlacedEnemyTileIndex = index;
+            //creates and places object in cell
+            //index is the number of objects created -1, returned by objectPlacer, like 5th object created returns 4
+            index = objectPlacer.PlaceEnemyTile(database.objectsData[selectedObjectID].Prefab, grid.CellToWorld(gridPosition));
 
         } else {
             selectedData = playerTileData;
+            //creates and places object in cell
+            //index is the number of objects created -1, returned by objectPlacer, like 5th object created returns 4
+            index = objectPlacer.PlacePlayerTile(database.objectsData[selectedObjectID].Prefab, grid.CellToWorld(gridPosition));
         }
 
         //add object data to gridData
         selectedData.AddObjectAt(gridPosition, database.objectsData[selectedObjectID].Size, database.objectsData[selectedObjectID].ID, index);
-
+        
         //change preview indicator and preview object to red after placing
         previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), false);
     }
@@ -143,28 +142,28 @@ public class PlacementState : IBuildingState
         Vector3Int right = new Vector3Int(gridPosition.x + 1, 0, gridPosition.z);
         Dictionary<Vector3Int, PlacementData> enemyTileGridData = enemyTileData.GetPlacedObjectsDictionary();
 
-        if(enemyTileGridData.ContainsKey(up) && (enemyTileGridData[up].PlacedObjectIndex == lastPlacedEnemyTileIndex))
+            // Debug.Log("Index of tile on the right: " + enemyTileGridData[right].PlacedObjectIndex);
+            // Debug.Log("Index of latest tile: " + objectPlacer.GetLatestEnemyTileIndex());
+            // Debug.Log("latest tile is on the right");
+
+        if(enemyTileGridData.ContainsKey(up) && (enemyTileGridData[up].PlacedObjectIndex == objectPlacer.GetLatestEnemyTileIndex()))
         {
-            Debug.Log(enemyTileGridData[up].PlacedObjectIndex);
-            Debug.Log(lastPlacedEnemyTileIndex);
+            Debug.Log(enemyTileGridData[up].PlacedObjectIndex + " = " + objectPlacer.GetLatestEnemyTileIndex());
             Debug.Log("latest tile is up");
             return true;
-        } else if(enemyTileGridData.ContainsKey(down) && (enemyTileGridData[down].PlacedObjectIndex == lastPlacedEnemyTileIndex))
+        } else if(enemyTileGridData.ContainsKey(down) && (enemyTileGridData[down].PlacedObjectIndex == objectPlacer.GetLatestEnemyTileIndex()))
         {
-            Debug.Log(enemyTileGridData[down].PlacedObjectIndex);
-            Debug.Log(lastPlacedEnemyTileIndex);
+            Debug.Log(enemyTileGridData[down].PlacedObjectIndex + " = " + objectPlacer.GetLatestEnemyTileIndex());
             Debug.Log("latest tile is below");
             return true;
-        } else if(enemyTileGridData.ContainsKey(left) && (enemyTileGridData[left].PlacedObjectIndex == lastPlacedEnemyTileIndex))
+        } else if(enemyTileGridData.ContainsKey(left) && (enemyTileGridData[left].PlacedObjectIndex == objectPlacer.GetLatestEnemyTileIndex()))
         {
-            Debug.Log(enemyTileGridData[left].PlacedObjectIndex);
-            Debug.Log(lastPlacedEnemyTileIndex);
+            Debug.Log(enemyTileGridData[left].PlacedObjectIndex + " = " + objectPlacer.GetLatestEnemyTileIndex());
             Debug.Log("latest tile is on the left");
             return true;
-        } else if(enemyTileGridData.ContainsKey(right) && (enemyTileGridData[right].PlacedObjectIndex == lastPlacedEnemyTileIndex))
+        } else if(enemyTileGridData.ContainsKey(right) && (enemyTileGridData[right].PlacedObjectIndex == objectPlacer.GetLatestEnemyTileIndex()))
         {
-            Debug.Log(enemyTileGridData[right].PlacedObjectIndex);
-            Debug.Log(lastPlacedEnemyTileIndex);
+            Debug.Log(enemyTileGridData[right].PlacedObjectIndex + " = " + objectPlacer.GetLatestEnemyTileIndex());
             Debug.Log("latest tile is on the right");
             return true;
         }

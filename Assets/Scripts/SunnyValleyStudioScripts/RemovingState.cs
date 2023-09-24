@@ -69,7 +69,7 @@ public class RemovingState : IBuildingState
             return;
           
           //remove object or enemy tile
-        } else
+        } else if (selectedData == enemyTileData)
         {   //what number object it is
             gameObjectIndex = selectedData.GetRepresentationIndex(gridPosition);
 
@@ -83,8 +83,23 @@ public class RemovingState : IBuildingState
             selectedData.RemoveObjectAt(gridPosition);
 
             //destroy gameObject
-            objectPlacer.RemoveObjectAt(gameObjectIndex);
-        }
+            objectPlacer.RemoveEnemyTile(gameObjectIndex);
+        } else if (selectedData == playerTileData)
+        {   //what number object it is
+            gameObjectIndex = selectedData.GetRepresentationIndex(gridPosition);
+
+            //if -1 means there is no object in the GridData
+            if(gameObjectIndex == -1)
+            {
+                return;
+            }
+
+            //remove object GridData
+            selectedData.RemoveObjectAt(gridPosition);
+
+            //destroy gameObject
+            objectPlacer.RemovePlayerTile(gameObjectIndex);
+        } 
 
         //world position of cell
         Vector3 cellPosition = grid.CellToWorld(gridPosition);
