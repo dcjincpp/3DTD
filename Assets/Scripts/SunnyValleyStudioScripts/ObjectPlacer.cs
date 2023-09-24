@@ -8,6 +8,7 @@ public class ObjectPlacer : MonoBehaviour
 {
     [SerializeField]
     private List<GameObject> placedEnemyTiles = new();
+    int latestEnemyTileIndex = -1;
 
     [SerializeField]
     private List<GameObject> placedPlayerTiles = new();
@@ -37,6 +38,7 @@ public class ObjectPlacer : MonoBehaviour
 
         //add created object into list of placed objects
         placedEnemyTiles.Add(selectedObject);
+        latestEnemyTileIndex++;
 
         //return how many objects placed -1
         return placedEnemyTiles.Count - 1; //why start at 0? change?, because index starts at 0
@@ -65,15 +67,20 @@ public class ObjectPlacer : MonoBehaviour
             return;
         }
 
+        latestEnemyTileIndex--;
+        
         //destroy gameobject with index
         Destroy(placedEnemyTiles[gameObjectIndex]);
 
+        Debug.Log("Index of item being removed: " + gameObjectIndex);
+        Debug.Log("Index of latest enemy tile: " + latestEnemyTileIndex);
+
         //replace list at index with null
-        placedEnemyTiles[gameObjectIndex] = null;
+        placedEnemyTiles.RemoveAt(gameObjectIndex);
     }
 
     public int GetLatestEnemyTileIndex ()
     {
-        return placedEnemyTiles.Count - 1;
+        return latestEnemyTileIndex;
     }
 }
