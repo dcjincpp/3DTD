@@ -11,8 +11,12 @@ public class RemovingState : IBuildingState
 
     PreviewSystem previewSystem;
 
+    //start at null and switches based on item removing
+    GridData selectedData = null;
+
     GridData enemyTileData;
     GridData playerTileData;
+    
 
     ObjectPlacer objectPlacer;
 
@@ -45,9 +49,6 @@ public class RemovingState : IBuildingState
         {
             return;
         }
-
-        //start at null and switches based on item removing
-        GridData selectedData = null;
         
         //dont care about size because removing
         //check if occupied by playerTile
@@ -74,7 +75,7 @@ public class RemovingState : IBuildingState
             gameObjectIndex = selectedData.GetRepresentationIndex(gridPosition);
 
             //if -1 means there is no object in the GridData
-            if(gameObjectIndex == -1)
+            if((gameObjectIndex == -1) || (gameObjectIndex != objectPlacer.GetLatestEnemyTileIndex()))
             {
                 return;
             }
@@ -120,7 +121,7 @@ public class RemovingState : IBuildingState
     {
         bool validity;
 
-        if(gridPosition == GridData.spawnerPosition)
+        if((gridPosition == GridData.spawnerPosition) || (selectedData == enemyTileData && (gameObjectIndex != objectPlacer.GetLatestEnemyTileIndex())))
         {
             validity = false;
         } else {
