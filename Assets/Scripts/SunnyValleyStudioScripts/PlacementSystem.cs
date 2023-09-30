@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class PlacementSystem : MonoBehaviour
 {
+    [SerializeField]
+    private WayPoints wayPoints;
+
+    private Vector3 objectOffset = new Vector3(2.5f, 1.0f, 2.5f);
 
     [SerializeField]
     private GameObject endTile;
@@ -74,6 +78,9 @@ public class PlacementSystem : MonoBehaviour
         //add initial path tile
         endTile.transform.position = grid.CellToWorld(startPosition);
         enemyTileData.AddObjectAt(startPosition, GridData.tileSize, 0, objectPlacer.PlaceEnemyTile(database.objectsData[0].Prefab, grid.CellToWorld(startPosition)));
+
+        GameObject startPoint = wayPoints.createWaypoint(grid.CellToWorld(startPosition));
+        startPoint.transform.position += objectOffset;
         
         //grid data for placed player tiles
         playerTileData = new();
