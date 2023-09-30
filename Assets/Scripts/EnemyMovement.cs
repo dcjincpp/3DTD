@@ -33,7 +33,9 @@ public class EnemyMovement : MonoBehaviour
 
     void GetNextWaypoint ()
     {
-        if (waypointIndex == WayPoints.points.Length - 1)
+        Debug.Log("At waypoint" + waypointIndex);////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        Debug.Log("Total waypoints: " + (WayPoints.points.Count - 1));
+        if (waypointIndex == WayPoints.points.Count - 1) //check if this is correct
         {
             EndPath();
             return;

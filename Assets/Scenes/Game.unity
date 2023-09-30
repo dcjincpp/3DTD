@@ -4435,6 +4435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a407ce6249f43fc47bd4dcff9c5cf3a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wayPointPrefab: {fileID: 642822827450809640, guid: 29d998eab70de8a4098827d64380f7eb, type: 3}
 --- !u!1 &1003860945
 GameObject:
   m_ObjectHideFlags: 0
@@ -6212,6 +6213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f2c0e6b682bc048a44c8ca9949063b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wayPoints: {fileID: 1001442741}
   endTile: {fileID: 1791476462}
   inputmanager: {fileID: 1632739655}
   grid: {fileID: 10985349}

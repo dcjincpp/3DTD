@@ -1,16 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WayPoints : MonoBehaviour
 {
     public GameObject wayPointPrefab;
 
-    public static Transform[] points;
+    public static List<Transform> points = new();
 
     public void getEnemyPathing()
     {
-        points = new Transform[transform.childCount];
-
-        for (int i = 0; i < points.Length; i++)
+        for (int i = 0; i < points.Count; i++)
         {
             points[i] = transform.GetChild(i);
         }
@@ -20,6 +19,8 @@ public class WayPoints : MonoBehaviour
     {
         //create new waypoint and make into child of object script is attached to
         GameObject newWaypoint = Instantiate(wayPointPrefab, this.transform);
+
+        points.Add(newWaypoint.transform);
 
         //move waypoint to inputted gridposition
         newWaypoint.transform.position = gridPosition;
@@ -31,7 +32,9 @@ public class WayPoints : MonoBehaviour
 
     public void removeWaypoint ()
     {
-        Destroy(points[points.Length - 1].gameObject);
+        Destroy(points[points.Count - 1].gameObject);
+
+        points.RemoveAt(points.Count - 1);
 
         getEnemyPathing();
     }
