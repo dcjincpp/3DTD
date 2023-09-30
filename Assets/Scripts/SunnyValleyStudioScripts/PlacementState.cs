@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class PlacementState : IBuildingState
 {
+    WayPoints wayPoints;
+    private Vector3 waypointOffset = new Vector3(2.5f, 1.0f, 2.5f);
+
+    GameObject endTile;
+
     private int selectedObjectID = - 1;
     Dictionary<Vector3Int, PlacementData> enemyTileGridData;
 
@@ -22,8 +27,6 @@ public class PlacementState : IBuildingState
 
     ObjectPlacer objectPlacer;
 
-    GameObject endTile;
-
     public PlacementState(int iD,
                           Grid grid,
                           PreviewSystem previewSystem,
@@ -31,7 +34,8 @@ public class PlacementState : IBuildingState
                           GridData enemyTileData,
                           GridData playerTileData,
                           ObjectPlacer objectPlacer,
-                          GameObject endTile)
+                          GameObject endTile,
+                          WayPoints wayPoints)
     {
         ID = iD;
         this.grid = grid;
@@ -41,6 +45,7 @@ public class PlacementState : IBuildingState
         this.playerTileData = playerTileData;
         this.objectPlacer = objectPlacer;
         this.endTile = endTile;
+        this.wayPoints = wayPoints;
 
         //go to database which is ObjectsDatabaseSO, go to objectsData which is a list of ObjectData, find the ID that matches the inputted ID
         selectedObjectID = database.objectsData.FindIndex(data => data.ID == ID);
@@ -88,6 +93,9 @@ public class PlacementState : IBuildingState
 
             //move end tile to new placed enemy tile
             endTile.transform.position = grid.CellToWorld(gridPosition);
+
+            GameObject newWaypoint = wayPoints.createWaypoint(grid.CellToWorld(gridPosition));
+            newWaypoint.transform.position += waypointOffset;
 
         } else {
             selectedData = playerTileData;

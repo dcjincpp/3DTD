@@ -9,7 +9,7 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField]
     private WayPoints wayPoints;
 
-    private Vector3 objectOffset = new Vector3(2.5f, 1.0f, 2.5f);
+    private Vector3 waypointOffset = new Vector3(2.5f, 1.0f, 2.5f);
 
     [SerializeField]
     private GameObject endTile;
@@ -80,7 +80,7 @@ public class PlacementSystem : MonoBehaviour
         enemyTileData.AddObjectAt(startPosition, GridData.tileSize, 0, objectPlacer.PlaceEnemyTile(database.objectsData[0].Prefab, grid.CellToWorld(startPosition)));
 
         GameObject startPoint = wayPoints.createWaypoint(grid.CellToWorld(startPosition));
-        startPoint.transform.position += objectOffset;
+        startPoint.transform.position += waypointOffset;
         
         //grid data for placed player tiles
         playerTileData = new();
@@ -95,7 +95,7 @@ public class PlacementSystem : MonoBehaviour
         gridVisualization.SetActive(true);
 
         //create preview of selected object with its information and show cell indicator
-        buildingState = new PlacementState(ID, grid, preview, database, enemyTileData, playerTileData, objectPlacer, endTile);
+        buildingState = new PlacementState(ID, grid, preview, database, enemyTileData, playerTileData, objectPlacer, endTile, wayPoints);
 
         //left clicking now places structure
         inputmanager.OnClicked += PlaceStructure;
@@ -113,7 +113,7 @@ public class PlacementSystem : MonoBehaviour
         gridVisualization.SetActive(true);
 
         //create 1 x 1 cell indicator peview
-        buildingState = new RemovingState(grid, preview, enemyTileData, playerTileData, objectPlacer, endTile);
+        buildingState = new RemovingState(grid, preview, enemyTileData, playerTileData, objectPlacer, endTile, wayPoints);
 
         //left clicking now removes valid tiles
         inputmanager.OnClicked += PlaceStructure;

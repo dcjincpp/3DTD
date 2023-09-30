@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class RemovingState : IBuildingState
 {
+    WayPoints wayPoints;
+
     private int gameObjectIndex = -1;
 
     Dictionary<Vector3Int, PlacementData> enemyTileGridData;
@@ -28,7 +30,8 @@ public class RemovingState : IBuildingState
                           GridData enemyTileData,
                           GridData playerTileData,
                           ObjectPlacer objectPlacer,
-                          GameObject endTile)
+                          GameObject endTile,
+                          WayPoints wayPoints)
     {
         this.grid = grid;
         this.previewSystem = previewSystem;
@@ -36,6 +39,7 @@ public class RemovingState : IBuildingState
         this.playerTileData = playerTileData;
         this.objectPlacer = objectPlacer;
         this.endTile = endTile;
+        this.wayPoints = wayPoints;
 
         enemyTileGridData = enemyTileData.GetPlacedObjectsDictionary();
 
@@ -94,6 +98,8 @@ public class RemovingState : IBuildingState
             //destroy gameObject
             objectPlacer.RemoveEnemyTile(gameObjectIndex);
 
+            wayPoints.removeWaypoint();
+            
             //move end object to tile before removed tile
             endTile.transform.position = objectPlacer.GetPreviousEnemyTilePosition();
 
