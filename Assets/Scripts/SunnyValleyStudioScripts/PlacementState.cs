@@ -22,13 +22,16 @@ public class PlacementState : IBuildingState
 
     ObjectPlacer objectPlacer;
 
+    GameObject endTile;
+
     public PlacementState(int iD,
                           Grid grid,
                           PreviewSystem previewSystem,
                           ObjectsDatabaseSO database,
                           GridData enemyTileData,
                           GridData playerTileData,
-                          ObjectPlacer objectPlacer)
+                          ObjectPlacer objectPlacer,
+                          GameObject endTile)
     {
         ID = iD;
         this.grid = grid;
@@ -37,6 +40,7 @@ public class PlacementState : IBuildingState
         this.enemyTileData = enemyTileData;
         this.playerTileData = playerTileData;
         this.objectPlacer = objectPlacer;
+        this.endTile = endTile;
 
         //go to database which is ObjectsDatabaseSO, go to objectsData which is a list of ObjectData, find the ID that matches the inputted ID
         selectedObjectID = database.objectsData.FindIndex(data => data.ID == ID);
@@ -81,6 +85,9 @@ public class PlacementState : IBuildingState
             //creates and places object in cell
             //index is the number of objects created -1, returned by objectPlacer, like 5th object created returns 4
             index = objectPlacer.PlaceEnemyTile(database.objectsData[selectedObjectID].Prefab, grid.CellToWorld(gridPosition));
+
+            //move end tile to new placed enemy tile
+            endTile.transform.position = grid.CellToWorld(gridPosition);
 
         } else {
             selectedData = playerTileData;

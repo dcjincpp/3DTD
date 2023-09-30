@@ -83,4 +83,9 @@ public class ObjectPlacer : MonoBehaviour
     {
         return latestEnemyTileIndex;
     }
+//change to lower case ^v
+    public Vector3 GetPreviousEnemyTilePosition ()
+    {
+        return placedEnemyTiles[latestEnemyTileIndex].transform.position;
+    }
 }

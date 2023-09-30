@@ -8,7 +8,7 @@ public class PlacementSystem : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject end;
+    private GameObject endTile;
 
     [SerializeField]
     private InputManager inputmanager;
@@ -72,7 +72,7 @@ public class PlacementSystem : MonoBehaviour
 
 
         //add initial path tile
-        end.transform.position = grid.CellToWorld(startPosition);
+        endTile.transform.position = grid.CellToWorld(startPosition);
         enemyTileData.AddObjectAt(startPosition, GridData.tileSize, 0, objectPlacer.PlaceEnemyTile(database.objectsData[0].Prefab, grid.CellToWorld(startPosition)));
         
         //grid data for placed player tiles
@@ -88,7 +88,7 @@ public class PlacementSystem : MonoBehaviour
         gridVisualization.SetActive(true);
 
         //create preview of selected object with its information and show cell indicator
-        buildingState = new PlacementState(ID, grid, preview, database, enemyTileData, playerTileData, objectPlacer);
+        buildingState = new PlacementState(ID, grid, preview, database, enemyTileData, playerTileData, objectPlacer, endTile);
 
         //left clicking now places structure
         inputmanager.OnClicked += PlaceStructure;
@@ -106,7 +106,7 @@ public class PlacementSystem : MonoBehaviour
         gridVisualization.SetActive(true);
 
         //create 1 x 1 cell indicator peview
-        buildingState = new RemovingState(grid, preview, enemyTileData, playerTileData, objectPlacer);
+        buildingState = new RemovingState(grid, preview, enemyTileData, playerTileData, objectPlacer, endTile);
 
         //left clicking now removes valid tiles
         inputmanager.OnClicked += PlaceStructure;

@@ -18,21 +18,24 @@ public class RemovingState : IBuildingState
 
     GridData enemyTileData;
     GridData playerTileData;
-    
 
     ObjectPlacer objectPlacer;
+
+    GameObject endTile;
 
     public RemovingState( Grid grid,
                           PreviewSystem previewSystem,
                           GridData enemyTileData,
                           GridData playerTileData,
-                          ObjectPlacer objectPlacer)
+                          ObjectPlacer objectPlacer,
+                          GameObject endTile)
     {
         this.grid = grid;
         this.previewSystem = previewSystem;
         this.enemyTileData = enemyTileData;
         this.playerTileData = playerTileData;
         this.objectPlacer = objectPlacer;
+        this.endTile = endTile;
 
         enemyTileGridData = enemyTileData.GetPlacedObjectsDictionary();
 
@@ -90,6 +93,10 @@ public class RemovingState : IBuildingState
 
             //destroy gameObject
             objectPlacer.RemoveEnemyTile(gameObjectIndex);
+
+            //move end object to tile before removed tile
+            endTile.transform.position = objectPlacer.GetPreviousEnemyTilePosition();
+
         } else if (selectedData == playerTileData)
         {   //what number object it is
             gameObjectIndex = selectedData.GetRepresentationIndex(gridPosition);
