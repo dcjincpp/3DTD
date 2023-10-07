@@ -9,13 +9,13 @@ public class PauseMenu : MonoBehaviour
     public SceneFader sceneFader;
     public string menuSceneName = "MainMenu";
 
-    void Update ()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
-        {
-            TogglePause();
-        }
-    }
+    // void Update ()
+    // {
+    //     if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+    //     {
+    //         TogglePause();
+    //     }
+    // }
 
     public void TogglePause ()
     {

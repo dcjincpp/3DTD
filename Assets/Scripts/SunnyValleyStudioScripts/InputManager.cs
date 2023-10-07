@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class InputManager : MonoBehaviour
 {
+    public PauseMenu pauseMenu;
+
     [SerializeField]
     private Camera sceneCamera;
 
@@ -17,6 +19,11 @@ public class InputManager : MonoBehaviour
 
     public event Action OnClicked;
     public event Action OnExit;
+
+    void Awake ()
+    {
+        addPause();
+    }
 
     public void Update ()
     {
@@ -54,5 +61,15 @@ public class InputManager : MonoBehaviour
         }
 
         return lastPosition;
+    }
+
+    public void removePause ()
+    {
+        OnExit -= pauseMenu.TogglePause;
+    }
+
+    public void addPause ()
+    {
+        OnExit += pauseMenu.TogglePause;
     }
 }

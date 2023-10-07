@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PlacementSystem : MonoBehaviour
 {
+    public PauseMenu pauseMenu;
+
     [SerializeField]
     private WayPoints wayPoints;
 
@@ -99,8 +101,11 @@ public class PlacementSystem : MonoBehaviour
 
         //left clicking now places structure
         inputmanager.OnClicked += PlaceStructure;
+
+        //pressing escape no longer pauses game
+        inputmanager.removePause();
         
-        //clicking escape now stops placement
+        //pressing escape now stops placement
         inputmanager.OnExit += StopPlacement;
     }
     
@@ -117,6 +122,9 @@ public class PlacementSystem : MonoBehaviour
 
         //left clicking now removes valid tiles
         inputmanager.OnClicked += PlaceStructure;
+
+        //pressing escape no longer pauses game
+        inputmanager.removePause();
 
         //pressing escape stops remove state
         inputmanager.OnExit += StopPlacement;
@@ -165,8 +173,11 @@ public class PlacementSystem : MonoBehaviour
 
         //left clicking no longer places/removes structures
         inputmanager.OnClicked -= PlaceStructure;
-        //clicking escape no longer stops placement
+        //pressing escape no longer stops placement
         inputmanager.OnExit -= StopPlacement;
+
+        //pressing escape now pauses game;
+        inputmanager.addPause();
 
         //sets last detected position to (0, 0, 0)
         lastDetectedPosition = Vector3Int.zero;
