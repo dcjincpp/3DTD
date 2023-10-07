@@ -9,7 +9,7 @@ public class WaveSpawner : MonoBehaviour
     public Transform spawnPoint;
 
     public float timeBetweenWaves = 3f;
-    private float countdown = 2f;
+    //private float countdown = 2f;
     public TMPro.TextMeshProUGUI waveCountdownText;
 
     private int waveIndex = 0;

@@ -120,23 +120,23 @@ public class PlacementState : IBuildingState
         }
 
         //checks if the cell has an enemy tile or player tile and selectedData becomes corresponding GridData, enemy or player
-        GridData selectedData;
+        //GridData selectedData;
 
         if(database.objectsData[selectedObjectID].ID == 0)
         {
-            selectedData = enemyTileData;
+            //selectedData = enemyTileData;
 
             if(!NextToLatestTile(gridPosition))
             {
                 return false;
             }
 
-        } else {
-            selectedData = playerTileData;
-        }
+        } // else {
+        //     selectedData = playerTileData;
+        // }
         
         //true or false if object can be placed in corresponding GridData
-        return selectedData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectID].Size);
+        return (playerTileData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectID].Size) && enemyTileData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectID].Size));
     }
 
     //used to move cell indicator and object preview and change color in PlacementSystem
