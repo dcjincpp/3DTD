@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class PlacementSystem : MonoBehaviour
 {
-    public Shop shopBar;
+    public BuildTilesUI tilesBar;
+    public BuildTowersUI shopBar;
     public PauseMenu pauseMenu;
 
     [SerializeField]
@@ -105,9 +106,6 @@ public class PlacementSystem : MonoBehaviour
 
         //pressing escape no longer pauses game
         inputmanager.removePause();
-
-        //disable turret shop ui
-        shopBar.enableShop(false);
         
         //pressing escape now stops placement
         inputmanager.OnExit += StopPlacement;
@@ -129,9 +127,6 @@ public class PlacementSystem : MonoBehaviour
 
         //pressing escape no longer pauses game
         inputmanager.removePause();
-
-        //disable turret shop ui
-        shopBar.enableShop(false);
 
         //pressing escape stops remove state
         inputmanager.OnExit += StopPlacement;
@@ -164,7 +159,7 @@ public class PlacementSystem : MonoBehaviour
     // }
 
     //stop placement system: turn off selected object preview if there is one, turns off grid visualization, sets click and escape to do nothing 
-    private void StopPlacement()
+    public void StopPlacement()
     {
         //if not in a building state returns and does nothing
         if(buildingState == null)
@@ -183,8 +178,8 @@ public class PlacementSystem : MonoBehaviour
         //pressing escape no longer stops placement
         inputmanager.OnExit -= StopPlacement;
 
-        //enable turret shop ui
-        shopBar.enableShop(true);
+        //disables tile shop ui
+        tilesBar.disableTilesShopUI();
 
         //pressing escape now pauses game;
         inputmanager.addPause();

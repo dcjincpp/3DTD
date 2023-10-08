@@ -7,8 +7,6 @@ public class Shop : MonoBehaviour
     public TowerBlueprint missileTurret;
     public TowerBlueprint laserTurret;
 
-    public GameObject shopBar;
-
     BuildManager buildManager;
 
     void Start ()
@@ -35,8 +33,4 @@ public class Shop : MonoBehaviour
 
     }
 
-    public void enableShop (bool toggle)
-    {
-        shopBar.SetActive(toggle);
-    }
 }
