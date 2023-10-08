@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PlacementSystem : MonoBehaviour
 {
+    public Shop shopBar;
     public PauseMenu pauseMenu;
 
     [SerializeField]
@@ -104,6 +105,9 @@ public class PlacementSystem : MonoBehaviour
 
         //pressing escape no longer pauses game
         inputmanager.removePause();
+
+        //disable turret shop ui
+        shopBar.enableShop(false);
         
         //pressing escape now stops placement
         inputmanager.OnExit += StopPlacement;
@@ -125,6 +129,9 @@ public class PlacementSystem : MonoBehaviour
 
         //pressing escape no longer pauses game
         inputmanager.removePause();
+
+        //disable turret shop ui
+        shopBar.enableShop(false);
 
         //pressing escape stops remove state
         inputmanager.OnExit += StopPlacement;
@@ -175,6 +182,9 @@ public class PlacementSystem : MonoBehaviour
         inputmanager.OnClicked -= PlaceStructure;
         //pressing escape no longer stops placement
         inputmanager.OnExit -= StopPlacement;
+
+        //enable turret shop ui
+        shopBar.enableShop(true);
 
         //pressing escape now pauses game;
         inputmanager.addPause();
