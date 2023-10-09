@@ -15,6 +15,8 @@ public class NodeUI : MonoBehaviour
     {
         target = _target;
 
+        target.resetColor();
+
         transform.position = target.GetBuildPosition();
 
         if(!target.isUpgraded)

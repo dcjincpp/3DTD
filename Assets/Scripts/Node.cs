@@ -18,7 +18,7 @@ public class Node : MonoBehaviour
     [HideInInspector]
     public bool isUpgraded = false;
 
-    private Renderer rend;
+    public Renderer rend;
     private Color startColor;
     
     BuildManager buildManager;
@@ -85,7 +85,7 @@ public class Node : MonoBehaviour
 
         Debug.Log("Turret built!");
 
-        OnMouseEnter();
+        rend.material.color = invalidColor;
 
     }
 
@@ -158,5 +158,10 @@ public class Node : MonoBehaviour
     public float getTurretRange ()
     {
         return turret.GetComponent<Turret>().range;
+    }
+
+    public void resetColor ()
+    {
+        rend.material.color = startColor;
     }
 }
