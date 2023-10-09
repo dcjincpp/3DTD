@@ -3761,6 +3761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilesShopUI: {fileID: 685706384}
+  buildTowersUI: {fileID: 2024071139}
 --- !u!114 &752515402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6694,8 +6695,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f2c0e6b682bc048a44c8ca9949063b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilesBar: {fileID: 0}
-  shopBar: {fileID: 0}
+  tilesBar: {fileID: 752515401}
+  shopBar: {fileID: 2024071139}
   pauseMenu: {fileID: 1380576647}
   wayPoints: {fileID: 1001442741}
   endTile: {fileID: 1791476462}
@@ -8328,8 +8329,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba476ad5828aea34381230b195c9f596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopBar: {fileID: 0}
-  placementSystem: {fileID: 0}
+  shopBar: {fileID: 1574291825}
+  placementSystem: {fileID: 1563850470}
+  buildTilesUI: {fileID: 752515401}
+  buildManager: {fileID: 0}
 --- !u!114 &2024071140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8373,7 +8376,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2024071141}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2024071139}
+        m_TargetAssemblyTypeName: BuildTowersUI, Assembly-CSharp
+        m_MethodName: enableTowerShopUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2024071141
 MonoBehaviour:
   m_ObjectHideFlags: 0

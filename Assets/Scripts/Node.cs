@@ -31,6 +31,7 @@ public class Node : MonoBehaviour
         buildManager = BuildManager.instance;
     }
 
+    //get position of built tower on node
     public Vector3 GetBuildPosition ()
     {
         return transform.position + positionOffset;

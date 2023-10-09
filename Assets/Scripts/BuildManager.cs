@@ -29,8 +29,10 @@ public class BuildManager : MonoBehaviour
 
     public NodeUI nodeUI;
 
+    //select node
     public void SelectNode (Node node)
     {
+        //if selected already selected node, deselect and hide ui
         if(selectedNode == node)
         {
             DeselectNode();
@@ -53,6 +55,14 @@ public class BuildManager : MonoBehaviour
     public void SelectTurretToBuild (TowerBlueprint turret)
     {
         turretToBuild = turret;
+        
+        DeselectNode();
+    }
+
+    //sets turret to build to null
+    public void noLongerBuildingTowers ()
+    {
+        turretToBuild = null;
         
         DeselectNode();
     }
