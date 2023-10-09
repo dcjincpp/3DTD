@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 //keeps track of what cells are being taken up

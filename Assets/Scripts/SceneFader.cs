@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEngine.AI;
-using UnityEditor.UIElements;
 
 public class SceneFader : MonoBehaviour
 {
