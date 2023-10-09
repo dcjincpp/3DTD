@@ -132,6 +132,7 @@ public class Node : MonoBehaviour
 
     void OnMouseEnter ()
     {
+        //Debug.Log("entered node");
         if (EventSystem.current.IsPointerOverGameObject())
         {
             return;
@@ -152,6 +153,7 @@ public class Node : MonoBehaviour
 
     void OnMouseExit ()
     {
+        //Debug.Log("exited node");
         rend.material.color = startColor;
     }
 
