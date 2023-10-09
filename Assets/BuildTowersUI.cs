@@ -7,7 +7,6 @@ public class BuildTowersUI : MonoBehaviour
     public GameObject shopBar;
     public PlacementSystem placementSystem;
     public BuildTilesUI buildTilesUI;
-    public BuildManager buildManager;
 
     public void enableTowerShopUI ()
     {
@@ -19,6 +18,6 @@ public class BuildTowersUI : MonoBehaviour
     public void disableTowerShopUI ()
     {
         shopBar.SetActive(false);
-        buildManager.noLongerBuildingTowers();
+        BuildManager.instance.noLongerBuildingTowers();
     }
 }

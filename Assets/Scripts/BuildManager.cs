@@ -24,6 +24,7 @@ public class BuildManager : MonoBehaviour
 
     //checks if you have selected a tower. CanBuild = true when you have a tower selected
     public bool CanBuild { get { return turretToBuild != null; } }
+    
     //checks if you have enough money to build turretToBuild (selected turret to build)
     public bool HasMoney { get { return PlayerResources.Money >= turretToBuild.cost; } }
 

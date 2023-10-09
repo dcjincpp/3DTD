@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class NodeUI : MonoBehaviour
 {
+    public GameObject rangeIndicator;
     public GameObject uI;
     private Node target;
     public Button upgradeButton;
@@ -28,12 +29,17 @@ public class NodeUI : MonoBehaviour
 
         sellValue.text = "$" + target.towerBlueprint.GetSellValue();
 
+        rangeIndicator.transform.localScale = new Vector3(target.getTurretRange() * 2, 0, target.getTurretRange() * 2);
+
         uI.SetActive(true);
+        rangeIndicator.SetActive(true);
+
     }
 
     public void Hide ()
     {
         uI.SetActive(false);
+        rangeIndicator.SetActive(false);
     }
 
     public void Upgrade ()

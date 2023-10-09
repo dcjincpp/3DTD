@@ -85,6 +85,8 @@ public class Node : MonoBehaviour
 
         Debug.Log("Turret built!");
 
+        OnMouseEnter();
+
     }
 
     public void UpgradeTurret ()
@@ -140,7 +142,7 @@ public class Node : MonoBehaviour
             return;
         }
 
-        if (buildManager.HasMoney)
+        if (buildManager.HasMoney && turret == null)
         {
             rend.material.color = hoverColor;
         } else {
@@ -151,5 +153,10 @@ public class Node : MonoBehaviour
     void OnMouseExit ()
     {
         rend.material.color = startColor;
+    }
+
+    public float getTurretRange ()
+    {
+        return turret.GetComponent<Turret>().range;
     }
 }
