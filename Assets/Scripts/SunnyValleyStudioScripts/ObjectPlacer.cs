@@ -44,19 +44,25 @@ public class ObjectPlacer : MonoBehaviour
         return placedEnemyTiles.Count - 1; //why start at 0? change?, because index starts at 0
     }
 
-    internal void RemovePlayerTile (int gameObjectIndex)
+    internal bool RemovePlayerTile (int gameObjectIndex)
     {
         //if the amount of placed objects on the tile is less than or equal to the number of objects -1 or there is no gameObject with index in list, return
         if(placedPlayerTiles.Count <= gameObjectIndex || placedPlayerTiles[gameObjectIndex] == null)
         {
-            return;
+            return false;
         }
 
-        //destroy gameobject with index
-        Destroy(placedPlayerTiles[gameObjectIndex]);
+        if(!turretOnTile(gameObjectIndex))
+        {
+            //destroy gameobject with index
+            Destroy(placedPlayerTiles[gameObjectIndex]);
 
-        //replace list at index with null
-        placedPlayerTiles[gameObjectIndex] = null;
+            //replace list at index with null
+            placedPlayerTiles[gameObjectIndex] = null;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     internal void RemoveEnemyTile (int gameObjectIndex)
@@ -87,5 +93,10 @@ public class ObjectPlacer : MonoBehaviour
     public Vector3 GetPreviousEnemyTilePosition ()
     {
         return placedEnemyTiles[latestEnemyTileIndex].transform.position;
+    }
+
+    public bool turretOnTile (int gameObjectIndex)
+    {
+        return !(placedPlayerTiles[gameObjectIndex].transform.GetChild(0).GetComponent<Node>().getCurrentTurret() == null);
     }
 }

@@ -113,11 +113,17 @@ public class RemovingState : IBuildingState
                 return;
             }
 
+            Debug.Log(gameObjectIndex);
+
+            //destroy gameObject
+            if(!objectPlacer.RemovePlayerTile(gameObjectIndex))
+            {
+                return;
+            }
+
             //remove object GridData
             selectedData.RemoveObjectAt(gridPosition);
 
-            //destroy gameObject
-            objectPlacer.RemovePlayerTile(gameObjectIndex);
         } 
 
         //world position of cell
@@ -131,7 +137,7 @@ public class RemovingState : IBuildingState
     private bool CheckIfSelectionIsValid(Vector3Int gridPosition)
     {
         //checks if there is a playertile or enemytile
-        return !(playerTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one) && enemyTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one));
+        return !((playerTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one) && enemyTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one)) || objectPlacer.turretOnTile(playerTileData.GetRepresentationIndex(gridPosition)));
     }
 
     //used to move cell indicator and object preview and change color in PlacementSystem
@@ -139,7 +145,7 @@ public class RemovingState : IBuildingState
     {
         bool validity;
 
-        if((gridPosition == GridData.spawnerPosition) || (enemyTileGridData.ContainsKey(gridPosition) && (enemyTileGridData[gridPosition].PlacedObjectIndex == 0 || (enemyTileGridData[gridPosition].PlacedObjectIndex != objectPlacer.GetLatestEnemyTileIndex()))))
+        if((gridPosition == GridData.spawnerPosition) || (enemyTileGridData.ContainsKey(gridPosition) && enemyTileGridData[gridPosition].PlacedObjectIndex == 0))
         {
             validity = false;
         } else {
