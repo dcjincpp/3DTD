@@ -6,14 +6,16 @@ public class BuildTowersUI : MonoBehaviour
 {
     public GameObject shopBar;
     public PlacementSystem placementSystem;
+    public BuildTilesUI buildTilesUI;
 
-    public void enableShop ()
+    public void enableTowerShopUI ()
     {
         shopBar.SetActive(true);
+        buildTilesUI.disableTilesShopUI();
         placementSystem.StopPlacement();
     }
 
-    public void disableShop ()
+    public void disableTowerShopUI ()
     {
         shopBar.SetActive(false);
     }

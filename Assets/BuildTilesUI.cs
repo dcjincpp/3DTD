@@ -5,10 +5,13 @@ using UnityEngine;
 public class BuildTilesUI : MonoBehaviour
 {
     public GameObject tilesShopUI;
+    public BuildTowersUI buildTowersUI;
+
 
     public void enableTilesShopUI ()
     {
         tilesShopUI.SetActive(true);
+        buildTowersUI.disableTowerShopUI();
     }
 
     public void disableTilesShopUI ()

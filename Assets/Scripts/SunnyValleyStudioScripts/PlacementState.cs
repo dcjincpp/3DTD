@@ -163,23 +163,23 @@ public class PlacementState : IBuildingState
 
         if(enemyTileGridData.ContainsKey(up) && (enemyTileGridData[up].PlacedObjectIndex == objectPlacer.GetLatestEnemyTileIndex()))
         {
-            Debug.Log(enemyTileGridData[up].PlacedObjectIndex + " = " + objectPlacer.GetLatestEnemyTileIndex());
-            Debug.Log("latest tile is up");
+            // Debug.Log(enemyTileGridData[up].PlacedObjectIndex + " = " + objectPlacer.GetLatestEnemyTileIndex());
+            // Debug.Log("latest tile is up");
             return true;
         } else if(enemyTileGridData.ContainsKey(down) && (enemyTileGridData[down].PlacedObjectIndex == objectPlacer.GetLatestEnemyTileIndex()))
         {
-            Debug.Log(enemyTileGridData[down].PlacedObjectIndex + " = " + objectPlacer.GetLatestEnemyTileIndex());
-            Debug.Log("latest tile is below");
+            // Debug.Log(enemyTileGridData[down].PlacedObjectIndex + " = " + objectPlacer.GetLatestEnemyTileIndex());
+            // Debug.Log("latest tile is below");
             return true;
         } else if(enemyTileGridData.ContainsKey(left) && (enemyTileGridData[left].PlacedObjectIndex == objectPlacer.GetLatestEnemyTileIndex()))
         {
-            Debug.Log(enemyTileGridData[left].PlacedObjectIndex + " = " + objectPlacer.GetLatestEnemyTileIndex());
-            Debug.Log("latest tile is on the left");
+            // Debug.Log(enemyTileGridData[left].PlacedObjectIndex + " = " + objectPlacer.GetLatestEnemyTileIndex());
+            // Debug.Log("latest tile is on the left");
             return true;
         } else if(enemyTileGridData.ContainsKey(right) && (enemyTileGridData[right].PlacedObjectIndex == objectPlacer.GetLatestEnemyTileIndex()))
         {
-            Debug.Log(enemyTileGridData[right].PlacedObjectIndex + " = " + objectPlacer.GetLatestEnemyTileIndex());
-            Debug.Log("latest tile is on the right");
+            // Debug.Log(enemyTileGridData[right].PlacedObjectIndex + " = " + objectPlacer.GetLatestEnemyTileIndex());
+            // Debug.Log("latest tile is on the right");
             return true;
         }
 

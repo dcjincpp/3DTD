@@ -97,12 +97,16 @@ public class PlacementSystem : MonoBehaviour
 
         //show grid visual
         gridVisualization.SetActive(true);
+        Debug.Log("showing grid");
 
         //create preview of selected object with its information and show cell indicator
         buildingState = new PlacementState(ID, grid, preview, database, enemyTileData, playerTileData, objectPlacer, endTile, wayPoints);
 
         //left clicking now places structure
         inputmanager.OnClicked += PlaceStructure;
+
+        //pressing escape disables tile shop ui
+        inputmanager.OnExit += tilesBar.disableTilesShopUI;
 
         //pressing escape no longer pauses game
         inputmanager.removePause();
@@ -124,6 +128,9 @@ public class PlacementSystem : MonoBehaviour
 
         //left clicking now removes valid tiles
         inputmanager.OnClicked += PlaceStructure;
+
+        //pressing escape disables tile shop ui
+        inputmanager.OnExit += tilesBar.disableTilesShopUI;
 
         //pressing escape no longer pauses game
         inputmanager.removePause();
@@ -178,8 +185,8 @@ public class PlacementSystem : MonoBehaviour
         //pressing escape no longer stops placement
         inputmanager.OnExit -= StopPlacement;
 
-        //disables tile shop ui
-        tilesBar.disableTilesShopUI();
+        //pressing escape no longer disables tile shop ui
+        inputmanager.OnExit -= tilesBar.disableTilesShopUI;
 
         //pressing escape now pauses game;
         inputmanager.addPause();
@@ -212,7 +219,7 @@ public class PlacementSystem : MonoBehaviour
             //updateState checks validity, changes object preview and/or cell indicator color based on validity, and moves cell
             buildingState.UpdateState(gridPosition);
             
-            Debug.Log("x = " + gridPosition.x + "y = " + gridPosition.y + "z = " + gridPosition.z);
+            //Debug.Log("x = " + gridPosition.x + "y = " + gridPosition.y + "z = " + gridPosition.z);
 
             //new current position becomes old position
             lastDetectedPosition = gridPosition;
