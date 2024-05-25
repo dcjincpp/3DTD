@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EndZone : MonoBehaviour
 {
-    private void OnTriggerEnter (Collision collider)
+    private void OnTriggerEnter (Collider collider)
     {
         GameObject enteredObject = collider.gameObject;
 
