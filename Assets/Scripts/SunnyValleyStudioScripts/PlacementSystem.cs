@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class PlacementSystem : MonoBehaviour
 {
-    public BuildTilesUI tilesBar;
-    public BuildTowersUI shopBar;
     public PauseMenu pauseMenu;
 
     [SerializeField]
@@ -105,9 +103,6 @@ public class PlacementSystem : MonoBehaviour
         //left clicking now places structure
         inputmanager.OnClicked += PlaceStructure;
 
-        //pressing escape disables tile shop ui
-        inputmanager.OnExit += tilesBar.disableTilesShopUI;
-
         //pressing escape no longer pauses game
         inputmanager.removePause();
         
@@ -128,9 +123,6 @@ public class PlacementSystem : MonoBehaviour
 
         //left clicking now removes valid tiles
         inputmanager.OnClicked += PlaceStructure;
-
-        //pressing escape disables tile shop ui
-        inputmanager.OnExit += tilesBar.disableTilesShopUI;
 
         //pressing escape no longer pauses game
         inputmanager.removePause();
@@ -184,9 +176,6 @@ public class PlacementSystem : MonoBehaviour
         inputmanager.OnClicked -= PlaceStructure;
         //pressing escape no longer stops placement
         inputmanager.OnExit -= StopPlacement;
-
-        //pressing escape no longer disables tile shop ui
-        inputmanager.OnExit -= tilesBar.disableTilesShopUI;
 
         //pressing escape now pauses game;
         inputmanager.addPause();

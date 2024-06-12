@@ -137,7 +137,7 @@ public class RemovingState : IBuildingState
     private bool CheckIfSelectionIsValid(Vector3Int gridPosition)
     {
         //checks if there is a playertile or enemytile
-        return !((playerTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one) && enemyTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one)) || objectPlacer.turretOnTile(playerTileData.GetRepresentationIndex(gridPosition)));
+        return !((playerTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one) && enemyTileData.CanPlaceObjectAt(gridPosition, Vector2Int.one)));
     }
 
     //used to move cell indicator and object preview and change color in PlacementSystem

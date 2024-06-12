@@ -50,9 +50,7 @@ public class ObjectPlacer : MonoBehaviour
         if(placedPlayerTiles.Count <= gameObjectIndex || placedPlayerTiles[gameObjectIndex] == null)
         {
             return false;
-        }
-
-        if(!turretOnTile(gameObjectIndex))
+        } else
         {
             //destroy gameobject with index
             Destroy(placedPlayerTiles[gameObjectIndex]);
@@ -60,9 +58,19 @@ public class ObjectPlacer : MonoBehaviour
             //replace list at index with null
             placedPlayerTiles[gameObjectIndex] = null;
             return true;
-        } else {
-            return false;
         }
+
+        //if(!turretOnTile(gameObjectIndex))
+        //{
+        //    //destroy gameobject with index
+        //    Destroy(placedPlayerTiles[gameObjectIndex]);
+
+        //    //replace list at index with null
+        //    placedPlayerTiles[gameObjectIndex] = null;
+        //    return true;
+        //} else {
+        //    return false;
+        //}
     }
 
     internal void RemoveEnemyTile (int gameObjectIndex)
@@ -95,8 +103,8 @@ public class ObjectPlacer : MonoBehaviour
         return placedEnemyTiles[latestEnemyTileIndex].transform.position;
     }
 
-    public bool turretOnTile (int gameObjectIndex)
-    {
-        return !(placedPlayerTiles[gameObjectIndex].transform.GetChild(0).GetComponent<Node>().getCurrentTurret() == null);
-    }
+    //public bool turretOnTile (int gameObjectIndex)
+    //{
+    //    return !(placedPlayerTiles[gameObjectIndex].transform.GetChild(0).GetComponent<Node>().getCurrentTurret() == null);
+    //}
 }

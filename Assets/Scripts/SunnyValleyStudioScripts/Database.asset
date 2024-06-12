@@ -20,7 +20,7 @@ MonoBehaviour:
   - <Name>k__BackingField: NatureTile
     <ID>k__BackingField: 1
     <Size>k__BackingField: {x: 1, y: 1}
-    <Prefab>k__BackingField: {fileID: 820336029613033222, guid: 2133d7f692b6671489004bcac8b10e6c, type: 3}
+    <Prefab>k__BackingField: {fileID: 1985335765965123773, guid: 6f78376ce38d7b94b95e63a56b93eb67, type: 3}
   - <Name>k__BackingField: MachineTile
     <ID>k__BackingField: 2
     <Size>k__BackingField: {x: 1, y: 1}
