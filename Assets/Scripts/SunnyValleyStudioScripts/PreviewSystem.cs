@@ -101,6 +101,7 @@ public class PreviewSystem : MonoBehaviour
         ApplyFeedbackToCursor(validity);
     }
 
+    #region UpdatePositionSubfunctions
     //move selected object's preview to position, which is cursor position
     private void MovePreview(Vector3 position)
     {
@@ -140,6 +141,8 @@ public class PreviewSystem : MonoBehaviour
         cellIndicatorRenderer.material.color = c;
 
     }
+
+    #endregion
 
     //remove option preview
     internal void StartShowingRemovePreview()
